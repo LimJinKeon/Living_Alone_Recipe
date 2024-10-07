@@ -1,6 +1,7 @@
 package living_alone.eat.service;
 
 import living_alone.eat.domain.Member;
+import living_alone.eat.domain.Refrigerator;
 import living_alone.eat.exception.MyDuplicateId;
 import living_alone.eat.repository.MemberRepository;
 import living_alone.eat.web.domain.dto.AddMemberForm;
@@ -13,11 +14,12 @@ import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
-@Transactional
+@Transactional(readOnly = true)
 public class MemberService {
 
     private final MemberRepository memberRepository;
 
+    @Transactional
     public Member save(AddMemberForm form) {
         Member member = new Member(form.getLoginId(), form.getPassword(), form.getUsername());
         boolean duplicate = duplicatedIdCheck(member.getLoginId());
@@ -25,6 +27,8 @@ public class MemberService {
         if (duplicate) {
             throw new MyDuplicateId("이미 존재하는 아이디입니다");
         }
+
+        member.setRefrigerator(new Refrigerator());
         return memberRepository.save(member);
     }
 
@@ -44,6 +48,7 @@ public class MemberService {
         return memberRepository.findAll();
     }
 
+    @Transactional
     public void delete(Long id) {
         memberRepository.deleteById(id);
     }

@@ -6,26 +6,31 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.RequiredArgsConstructor;
 
+import java.util.List;
+
 @Entity
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Getter
 public class Member {
 
     @Id @GeneratedValue
-    private int id;
+    private Long id;
 
     private String username;
     private String loginId;
-
     private String password;
 
-    @OneToOne(fetch = FetchType.LAZY, mappedBy = "member")
+    @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @JoinColumn(name = "refrigerator_id")
     private Refrigerator refrigerator;
+
+    @OneToMany(mappedBy = "member")
+    private List<Recipe> recipes;
 
     @Embedded
     private Address address;
 
-    protected void setRefrigerator(Refrigerator refrigerator) {
+    public void setRefrigerator(Refrigerator refrigerator) {
         this.refrigerator = refrigerator;
     }
 

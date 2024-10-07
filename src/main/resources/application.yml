@@ -8,6 +8,11 @@ spring:
     password: 1234
     driver-class-name: org.mariadb.jdbc.Driver
 
+  servlet:
+    multipart:
+      max-file-size: 10MB
+      max-request-size: 30MB
+
   jpa:
     hibernate:
       ddl-auto: none
@@ -21,3 +26,6 @@ spring:
 logging.level:
     org.hibernate.SQL: debug
     org.hibernate.type: trace
+
+file:
+  dir: C:/Users/user/Desktop/living_alone_eat/eat/file/

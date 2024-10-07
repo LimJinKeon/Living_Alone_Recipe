@@ -1,9 +1,6 @@
 package living_alone.eat.domain;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.Id;
-import jakarta.persistence.OneToMany;
+import jakarta.persistence.*;
 import lombok.Getter;
 
 import java.time.LocalDate;
@@ -15,11 +12,11 @@ import java.util.List;
 public class Ingredient {
 
     @Id @GeneratedValue
-    private long id;
+    private Long id;
 
     private String name;
     private LocalDate Expiration;
 
     @OneToMany(mappedBy = "ingredient")
-    private List<RefrigeratorIngredient> refIngre = new ArrayList<>();
+    private List<RefrigeratorIngredient> ingredients;
 }

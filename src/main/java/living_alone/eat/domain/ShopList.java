@@ -10,5 +10,5 @@ import lombok.Getter;
 public class ShopList {
 
     @Id @GeneratedValue
-    private long id;
+    private Long id;
 }

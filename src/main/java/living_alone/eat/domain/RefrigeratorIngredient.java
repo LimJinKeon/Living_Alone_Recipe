@@ -24,4 +24,12 @@ public class RefrigeratorIngredient extends DateEntity {
     protected void setRefrigerator(final Refrigerator refrigerator) {
         this.refrigerator = refrigerator;
     }
+
+    public void removeIngredient(int quantity) {
+        int restQuantity = this.quantity - quantity;
+        if (restQuantity < 0) {
+//            throw new NotEnoughStockException("재고가 없습니다");
+        }
+        this.quantity = restQuantity;
+    }
 }

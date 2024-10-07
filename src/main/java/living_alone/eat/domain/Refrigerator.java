@@ -1,31 +1,27 @@
 package living_alone.eat.domain;
 
 import jakarta.persistence.*;
+import lombok.Getter;
 
-import java.util.ArrayList;
+import java.time.LocalDate;
 import java.util.List;
 
 @Entity
+@Getter
 public class Refrigerator {
 
     @Id @GeneratedValue
-    private int id;
+    private Long id;
 
-    @OneToOne
-    @JoinColumn(name = "member_id")
+    @OneToOne(fetch = FetchType.LAZY, mappedBy = "refrigerator")
     private Member member;
 
-    @OneToMany(mappedBy = "refrigerator", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<RefrigeratorIngredient> ingredients = new ArrayList<>();
-
-    public void setMember(Member member) {
-        this.member = member;
-        member.setRefrigerator(this);
-
-    }
+    @OneToMany(mappedBy = "refrigerator", cascade = CascadeType.ALL)
+    private List<RefrigeratorIngredient> ingredients;
 
     public void addIngredient(RefrigeratorIngredient ingredient) {
         ingredients.add(ingredient);
         ingredient.setRefrigerator(this);
     }
+
 }

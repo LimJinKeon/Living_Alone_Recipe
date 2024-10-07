@@ -1,10 +1,26 @@
 <!DOCTYPE html>
-<html lang="en">
+<html th:replace="template/layout/nav_side :: layout(~{::title}, ~{::div})">
 <head>
-    <meta charset="UTF-8">
     <title>밥 먹고 갈래?</title>
 </head>
 <body>
-
+    <!-- 오른쪽 창 -->
+    <div class="col-md-10 my-4">
+        <!-- 레시피 리스트 -->
+        <div class="row mb-4" th:each="recipe : ${recipes}">
+            <div class="col-md-3">
+                <img th:src="|/recipes/images/${recipe.storeFileName}|" src="img/morning_refrigerator.png" class="img-fluid w-80" th:alt="${recipe.uploadFileName}" alt="Blog image 1">
+            </div>
+            <div class="col-md-8" th:onclick="|location.href=@{/recipes/${recipe.id}}|" style="cursor: pointer;">
+                <div class="d-flex justify-content-between align-items-center">
+                    <h3 th:text="${recipe.cookName}">요리명</h3>
+                    <span class="text-muted" th:text="|만든이 : ${recipe.getMember().getUsername()}|"></span>
+                </div>
+                <p class="h5" th:text="${recipe.description}">
+                    요리 설명
+                </p>
+            </div>
+        </div>
+    </div>
 </body>
 </html>

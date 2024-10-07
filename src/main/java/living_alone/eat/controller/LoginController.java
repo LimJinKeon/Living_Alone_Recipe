@@ -43,6 +43,7 @@ public class LoginController {
         try {
             memberService.save(form);
         } catch (MyDuplicateId e) {
+            //아이디 중복
             result.rejectValue("loginId", "duplicate");
             return "members/addMemberForm";
         }
@@ -76,7 +77,7 @@ public class LoginController {
         return "redirect:" + redirectURL;
     }
 
-    @PostMapping("/logout")
+    @GetMapping("/logout")
     public String logout(HttpServletRequest request) {
         HttpSession session = request.getSession(false);
         if (session != null) {
