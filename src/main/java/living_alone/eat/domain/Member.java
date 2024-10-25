@@ -1,10 +1,7 @@
 package living_alone.eat.domain;
 
 import jakarta.persistence.*;
-import lombok.AccessLevel;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.RequiredArgsConstructor;
+import lombok.*;
 
 import java.util.List;
 
@@ -27,6 +24,9 @@ public class Member {
     @OneToMany(mappedBy = "member")
     private List<Recipe> recipes;
 
+    @Enumerated(EnumType.STRING)
+    private Role role;
+
     @Embedded
     private Address address;
 
@@ -34,10 +34,13 @@ public class Member {
         this.refrigerator = refrigerator;
     }
 
-    public Member(String loginId, String password, String username) {
+    @Builder
+    public Member(String loginId, String password, String username, Role role, Refrigerator ref) {
         this.loginId = loginId;
         this.password = password;
         this.username = username;
+        this.role = role;
+        this.refrigerator = ref;
     }
 
 }

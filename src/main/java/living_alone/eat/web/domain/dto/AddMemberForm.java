@@ -1,5 +1,7 @@
 package living_alone.eat.web.domain.dto;
 
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.Size;
 import lombok.Data;
@@ -16,6 +18,9 @@ public class AddMemberForm {
 
     @NotEmpty(message = "{required.name}")
     private String username;
+
+    @Enumerated(EnumType.STRING)
+    private String role;
 
     private String city;
     private String street;

@@ -3,6 +3,7 @@ package living_alone.eat.repository;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import jakarta.persistence.EntityManager;
 import living_alone.eat.domain.Member;
+import living_alone.eat.domain.QMember;
 import living_alone.eat.web.domain.dto.LoginForm;
 
 import static living_alone.eat.domain.QMember.member;

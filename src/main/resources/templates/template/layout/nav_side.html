@@ -5,93 +5,93 @@
     <link rel="stylesheet" th:href="@{/css/bootstrap.min.css}" href="../../css/bootstrap.min.css" integrity="sha384
         ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
           crossorigin="anonymous">
+    <link rel="icon" href="../../img/fabicon.png" th:href="@{/img/fabicon.png}" type="image/png">
 
     <!--추가-->
     <title th:replace="${title}">메인 타이틀</title>
 </head>
 <body>
-<header class="p-3 text-bg-dark">
+<header class="p-3" style="background-color: #008cff;">
     <div class="container">
         <div class="d-flex flex-wrap align-items-center justify-content-center justify-content-lg-start">
-            <a href="/" class="d-flex align-items-center mb-2 mb-lg-0 text-white text-decoration-none">
-                <svg class="bi me-2" width="40" height="32" role="img" aria-label="Bootstrap"><use xlink:href="#bootstrap"/></svg>
-            </a>
 
-            <ul class="nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0">
-                <li><a href="home.html" th:href="|@{/home}|" class="nav-link px-2 text-secondary">
-                    <img src="../../img/head.PNG" th:src="@{/img/head.PNG}" class="w-50"></a></li>
+            <ul class="nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center">
+                <li><a href="home.html" th:href="|@{/home}|" class="nav-link px-2">
+                    <img src="../../img/head.png" th:src="@{/img/head.png}" style="width: 12em;"></a></li>
             </ul>
 
             <form class="col-12 col-lg-auto mb-3 mb-lg-0 me-lg-3" role="search">
-                <input type="search" class="form-control form-control-dark text-bg-dark" placeholder="레시피 검색..." aria-label="Search">
+                <input type="search" class="form-control form-control-dark" placeholder="레시피 검색..." aria-label="Search">
             </form>
 
             <div class="text-end">
                 <a href="#" class="d-flex align-items-center link-body-emphasis text-decoration-none" aria-expanded="false">
-                    <img src="https://github.com/mdo.png" alt="" width="32" height="32" class="rounded-circle me-2">
+                    <img src="https://github.com/mdo.png" alt="" width="42" height="42" class="rounded-circle me-2">
                 </a>
             </div>
         </div>
     </div>
 </header>
 
-<hr class="my-0">
-
-<div class="container-fluid">
-    <div class="row">
-        <!-- Left Navigation Bar -->
-        <nav class="col-md-2 my-4 px-2">
-            <div class="d-flex flex-column flex-shrink-0 p-3" style="width: 250px;">
-                <ul class="nav nav-pills flex-column mb-auto p-3 h5">
-                    <li class="nav-item">
-                        <a href="/home" class="nav-link my-2" aria-current="page">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor" class="bi bi-house-door" viewBox="0 0 16 16">
-                                <path d="M8.354 1.146a.5.5 0 0 0-.708 0l-6 6A.5.5 0 0 0 1.5 7.5v7a.5.5 0 0 0 .5.5h4.5a.5.5 0 0 0 .5-.5v-4h2v4a.5.5 0 0 0 .5.5H14a.5.5 0 0 0 .5-.5v-7a.5.5 0 0 0-.146-.354L13 5.793V2.5a.5.5 0 0 0-.5-.5h-1a.5.5 0 0 0-.5.5v1.293zM2.5 14V7.707l5.5-5.5 5.5 5.5V14H10v-4a.5.5 0 0 0-.5-.5h-3a.5.5 0 0 0-.5.5v4z"/>
-                            </svg>
-                            Home
-                        </a>
-                    </li>
-                    <li>
-                        <a href="#" class="nav-link my-2">
-                            냉장고 가기
-                        </a>
-                    </li>
-                    <li>
-                        <a href="#" class="nav-link my-2">
-                            요리하기
-                        </a>
-                    </li>
-                    <li>
-                        <a href="#" class="nav-link my-2">
-                            내 레시피
-                        </a>
-                    </li>
-                    <li>
-                        <a href="#" class="nav-link my-2">
-                            장보기
-                        </a>
-                    </li>
-                    <li>
-                        <a href="#" class="nav-link my-2">
-                            근처 마트
-                        </a>
-                    </li>
-
-                    <hr class="my-4">
-
-                    <li>
-                        <a th:href="@{/logout}" class="nav-link my-2">
-                            로그아웃
-                        </a>
-                    </li>
-                </ul>
-            </div>
-        </nav>
-        <div th:replace="${content}"></div>
+<nav class="col-md-12 my-2">
+    <div class="d-flex flex-row flex-shrink-0 p-1 justify-content-sm-around ">
+        <ul class="nav nav-pills flex-row mb-auto p-1 h5">
+            <li class="nav-item">
+                <a href="home.html" th:href="|@{/home}|" class="nav-link mx-3">
+                    <img th:src="|/img/home.png|" src="../../img/home.png"
+                         style="width: 30px"; height="30px">
+                    Home
+                </a>
+            </li>
+            <li class="nav-item">
+                <a href="#" class="nav-link mx-3">
+                    <img th:src="|/img/refrigerator.png|" src="../../img/refrigerator.png"
+                        style="width: 30px"; height="30px">
+                    냉장고 가기
+                </a>
+            </li>
+            <li class="nav-item">
+                <a href="#" class="nav-link mx-3">
+                    <img th:src="|/img/cook.png|" src="../../img/cook.png"
+                         style="width: 30px"; height="30px">
+                    요리하기
+                </a>
+            </li>
+            <li class="nav-item">
+                <a href="#" class="nav-link mx-3">
+                    <img th:src="|/img/recipe_book.png|" src="../../img/recipe_book.png"
+                         style="width: 30px"; height="30px">
+                    내 레시피
+                </a>
+            </li>
+            <li class="nav-item">
+                <a href="#" class="nav-link mx-3">
+                    <img th:src="|/img/cart.png|" src="../../img/cart.png"
+                         style="width: 30px"; height="30px">
+                    장보기
+                </a>
+            </li>
+            <li class="nav-item">
+                <a href="#" class="nav-link mx-3">
+                    <img th:src="|/img/mart.png|" src="../../img/mart.png"
+                         style="width: 30px"; height="30px">
+                    주변 마트
+                </a>
+            </li>
+            <li class="nav-item">
+                <a href="../../welcome.html" th:href="|@{/logout}|" th:method="post" class="nav-link mx-3">
+                    <img th:src="|/img/mart.png|" src="../../img/mart.png"
+                         style="width: 30px"; height="30px">
+                    로그아웃
+                </a>
+            </li>
+        </ul>
     </div>
-</div>
-<div>
+</nav>
 
-</div>
+<hr class="my-1">
+
+<div th:replace="${content}"></div>
+
 </body>
 </html>

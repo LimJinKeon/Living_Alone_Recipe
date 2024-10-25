@@ -27,7 +27,10 @@
             <input type="password" id="password" th:field="*{password}"
                    class="form-control"
                    th:errorclass="field-error">
-            <div class="field-error" th:errors="*{password}" />
+            <th:block>
+                <div class="field-error" th:if="${param.error}" th:text="#{invalid.id.password}" />
+            </th:block>
+            <!--            <div class="field-error" th:errors="*{password}" />-->
         </div>
 
         <hr class="my-4">

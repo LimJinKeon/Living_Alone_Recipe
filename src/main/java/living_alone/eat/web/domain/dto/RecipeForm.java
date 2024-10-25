@@ -7,12 +7,12 @@ import org.springframework.web.multipart.MultipartFile;
 @Data
 public class RecipeForm {
 
-    @NotEmpty(message = "요리명을 적어주세요")
+    @NotEmpty(message = "{required.cookName}")
     private String cookName;
 
-    @NotEmpty(message = "코멘트를 남겨주세요")
+    @NotEmpty(message = "{required.description}")
     private String description;
 
-    @NotEmpty(message = "사진을 넣어주세요")
+    @NotEmpty(message = "{required.picture}")
     private MultipartFile imageFile;
 }
