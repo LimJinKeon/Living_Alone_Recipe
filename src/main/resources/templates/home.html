@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html th:replace="template/layout/nav_side :: layout(~{::title}, ~{::div})">
+<html th:replace="template/layout/nav :: layout(~{::title}, ~{::body})">
 <head>
     <title>밥 먹고 갈래?</title>
 </head>
@@ -8,12 +8,12 @@
 <div class="container-fluid">
     <div class="row">
         <!-- 왼쪽 영역: 레시피 리스트를 2단으로 나눔 -->
+<!--        <h4 class="mx-2 my-4">나만의 레시피 공유</h4>-->
         <div class="col-md-6 mx-4 my-4 card-group">
-            <h4 class="mx-2 my-4">나만의 레시피 공유</h4>
             <div class="row">
                 <div th:each="recipe : ${recipes}" class="col-md-6 mb-4">
-                    <div class="card h-100 d-flex flex-row"> <!-- 카드 전체를 Flexbox로 설정 -->
-                        <img th:src="|/recipes/images/${recipe.storeFileName}|" src="img/morning_refrigerator.png"
+                    <div class="card h-100 d-flex flex-row rounded"> <!-- 카드 전체를 Flexbox로 설정 -->
+                        <img th:src="|/recipes/images/${recipe.storeFileName}|" src="../static/img/morning_refrigerator.png"
                              class="recipe-image" th:alt="${recipe.uploadFileName}" alt="Recipe image">
 
                         <div class="card-body d-flex flex-column"> <!-- Flexbox로 설정 -->
@@ -35,22 +35,21 @@
             <!-- 오른쪽에 다른 콘텐츠를 추가할 수 있음 -->
         </div>
     </div>
-
     <style>
         /* 이미지 크기 및 조정 */
         .recipe-image {
-            width: 150px; /* 이미지 너비 설정 */
-            height: 150px; /* 이미지 높이 설정 */
-            object-fit: cover; /* 이미지를 비율에 맞게 잘라냄 */
+            width: 150px;       /* 이미지 너비 설정 */
+            height: 154px;      /* 이미지 높이 설정 */
+            object-fit: cover;  /* 이미지를 비율에 맞게 잘라냄 */
         }
 
         /* 요리 설명 높이 제한 */
         .recipe-description {
-            max-height: 10em; /* 최대 높이 설정 */
-            overflow: hidden; /* 넘치는 부분 숨김 */
+            max-height: 10em;        /* 최대 높이 설정 */
+            overflow: hidden;        /* 넘치는 부분 숨김 */
             text-overflow: ellipsis; /* 넘칠 경우 ...으로 표시 */
-            display: -webkit-box; /* Flexbox 설정 */
-            -webkit-line-clamp: 3; /* 최대 3줄 표시 */
+            display: -webkit-box;    /* Flexbox 설정 */
+            -webkit-line-clamp: 2;   /* 최대 3줄 표시 */
             -webkit-box-orient: vertical; /* 수직 방향 설정 */
         }
     </style>

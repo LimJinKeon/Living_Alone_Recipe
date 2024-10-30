@@ -15,11 +15,13 @@ public class HomeController {
 
     private final RecipeService recipeService;
 
+    // welcome 화면
     @GetMapping("/")
     public String mainPage() {
         return "welcome";
     }
 
+    // 홈 화면
     @GetMapping("/home")
     public String home(Model model) {
         List<Recipe> recipes = recipeService.findAll();

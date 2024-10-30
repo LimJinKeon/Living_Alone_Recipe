@@ -10,19 +10,21 @@ import java.util.List;
 @Getter
 public class Member {
 
-    @Id @GeneratedValue
+    @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     private String username;
     private String loginId;
     private String password;
 
-    @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    @JoinColumn(name = "refrigerator_id")
-    private Refrigerator refrigerator;
-
     @OneToMany(mappedBy = "member")
     private List<Recipe> recipes;
+
+    @OneToMany(mappedBy = "member")
+    private List<Refrigerator> refrigerators;
+
+    @OneToOne(mappedBy = "member")
+    private ShopList shopList;
 
     @Enumerated(EnumType.STRING)
     private Role role;
@@ -30,17 +32,12 @@ public class Member {
     @Embedded
     private Address address;
 
-    public void setRefrigerator(Refrigerator refrigerator) {
-        this.refrigerator = refrigerator;
-    }
-
     @Builder
-    public Member(String loginId, String password, String username, Role role, Refrigerator ref) {
+    public Member(String loginId, String password, String username, Role role) {
         this.loginId = loginId;
         this.password = password;
         this.username = username;
         this.role = role;
-        this.refrigerator = ref;
     }
 
 }

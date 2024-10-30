@@ -43,7 +43,6 @@ public class MemberService {
                 .loginId(form.getLoginId())
                 .password(encodedPassword)
                 .role(role)
-                .ref(new Refrigerator())
                 .build();
         return memberRepository.save(member);
     }
@@ -52,20 +51,12 @@ public class MemberService {
         return memberRepository.findByLoginId(loginId).isPresent();
     }
 
-    public Optional<Member> findById(Long id) {
-        return memberRepository.findById(id);
-    }
-
     public Optional<Member> findByLoginId(String loginId) {
         return memberRepository.findByLoginId(loginId);
     }
 
     public Optional<Member> findByUsername(String name) {
         return memberRepository.findByUsername(name);
-    }
-
-    public List<Member> findAll() {
-        return memberRepository.findAll();
     }
 
     @Transactional

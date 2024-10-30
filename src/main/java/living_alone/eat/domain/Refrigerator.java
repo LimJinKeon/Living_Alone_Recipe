@@ -3,25 +3,29 @@ package living_alone.eat.domain;
 import jakarta.persistence.*;
 import lombok.Getter;
 
-import java.time.LocalDate;
-import java.util.List;
-
 @Entity
 @Getter
-public class Refrigerator {
+public class Refrigerator extends DateEntity {
 
-    @Id @GeneratedValue
+    @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @OneToOne(fetch = FetchType.LAZY, mappedBy = "refrigerator")
+    private String name;
+    private int quantity;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "member_id")
     private Member member;
 
-    @OneToMany(mappedBy = "refrigerator", cascade = CascadeType.ALL)
-    private List<RefrigeratorIngredient> ingredients;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "ingredient_id")
+    private Ingredient ingredient;
 
-    public void addIngredient(RefrigeratorIngredient ingredient) {
-        ingredients.add(ingredient);
-        ingredient.setRefrigerator(this);
+    public void removeIngredient(int quantity) {
+        int restQuantity = this.quantity - quantity;
+        if (restQuantity < 0) {
+//            throw new NotEnoughStockException("재고가 없습니다");
+        }
+        this.quantity = restQuantity;
     }
-
 }

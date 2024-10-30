@@ -1,4 +1,4 @@
-package living_alone.eat;
+package living_alone.eat.web.session;
 
 public class SessionConst {
 

@@ -19,6 +19,7 @@ spring:
     properties:
       hibernate:
         format_sql: true
+        default_batch_fetch_size: 100
 
   messages:
     basename: messages, errors
@@ -29,3 +30,8 @@ logging.level:
 
 file:
   dir: C:/Users/user/Desktop/living_alone_eat/eat/file/
+
+chatbot:
+  api:
+    url: "https://api.openai.com/v1/chat/completions"
+    

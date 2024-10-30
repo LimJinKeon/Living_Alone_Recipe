@@ -1,7 +1,6 @@
 package living_alone.eat.domain;
 
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
@@ -10,7 +9,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class Recipe extends UploadFile{
 
-    @Id @GeneratedValue
+    @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @ManyToOne(fetch = FetchType.LAZY)

@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html th:replace="template/layout/nav_link :: layout(~{::title}, ~{::body}, ~{::link}, ~{::script})">
+<head>
+    <title>요리하기</title>
+    <link rel="stylesheet" href="../../static/css/cook.css" th:href="@{/css/cook.css}">
+    <script th:src="@{/js/cook.js}"></script>
+</head>
+
+<body>
+    <div>
+        <div id="chat-container">
+            <!-- 채팅 박스 -->
+            <div id="chat-box">
+            </div>
+
+            <!-- 입력 박스 -->
+            <div id="input-container">
+                <form  th:onsubmit="|addMessage(); return false;|">
+                    <input type="text" id="user-input"  placeholder=" 레시피를 물어보세요..." style="border-radius: 50px; background-color: #f1f1f4; margin-right: 0.5rem"/>
+                    <button type="submit" style="border-radius: 50px;">&gt;</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

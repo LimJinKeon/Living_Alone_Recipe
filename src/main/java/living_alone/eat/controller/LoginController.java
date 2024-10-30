@@ -90,6 +90,7 @@ public class LoginController {
         return true;
     }
 
+    //로그아웃
     @PostMapping("/logout")
     public String logout(HttpServletRequest request) {
         HttpSession session = request.getSession(false);

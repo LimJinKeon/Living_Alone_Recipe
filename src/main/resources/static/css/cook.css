@@ -1,0 +1,110 @@
+/* 채팅 컨테이너 중앙 배치 */
+#chat-container {
+    position: absolute;
+    top: 55%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 700px; /* 좌우 넓이 확장 */
+    height: 750px; /* 높이 조정 */
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    overflow: hidden;
+    font-family: Arial, sans-serif;
+    background-color: #f0f0f5;
+    box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.2);
+    display: flex;
+    flex-direction: column;
+}
+
+/* 채팅 박스 스타일 */
+#chat-box {
+    flex-grow: 1;
+    padding: 10px;
+    overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+    background-color: #f9f9fb;
+}
+
+/* 메시지 스타일 */
+.message {
+    display: flex;
+    margin: 8px 0;
+    padding: 8px;
+    border-radius: 8px;
+    box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.user-message {
+    align-self: flex-end;
+    text-align: right;
+    background-color: #007bff;
+    color: #fff;
+    padding: 8px 12px;
+    border-radius: 15px 15px 0 15px;
+    max-width: 70%;
+    margin-top: 15px;
+    word-wrap: break-word;
+    font-size: 16px;
+    font-family: 'Helvetica Neue', Arial, sans-serif;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+}
+
+
+
+.bot-message {
+    align-self: flex-start;
+    text-align: left;
+    background-color: #e5e5ea;
+    color: #333;
+    padding: 8px 12px;
+    border-radius: 15px 15px 15px 0;
+    max-width: 70%;
+    margin-top: 10px;
+    word-wrap: break-word;
+    font-size: 16px;
+    font-family: 'Helvetica Neue', Arial, sans-serif;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+/* 입력 창을 하단에 고정 */
+#input-container {
+    display: flex;
+    width: 100%;  /* 부모 요소가 chat-container의 전체 너비를 차지하도록 설정 */
+    border-top: 1px solid #ddd;
+    padding: 8px;
+    background-color: #fff;
+    box-sizing: border-box;  /* 패딩이 포함되도록 설정하여 전체 너비 차지 */
+}
+
+form {
+    display: flex;
+    width: 100%;  /* form이 부모 요소의 전체 너비를 차지하도록 설정 */
+}
+
+#user-input {
+    flex-grow: 1;
+    padding: 8px;
+    border: none;
+    outline: none;
+    font-size: 14px;
+    border-radius: 20px 0 0 20px;
+    background-color: #f1f1f4;
+    box-sizing: border-box;  /* 패딩이 포함되도록 설정 */
+}
+
+button {
+    padding: 8px 12px;
+    border: none;
+    background-color: #007bff;
+    color: #fff;
+    cursor: pointer;
+    border-radius: 0 20px 20px 0;
+    font-size: 14px;
+    font-family: Arial, sans-serif;
+    transition: background-color 0.3s;
+}
+
+button:hover {
+    background-color: #0056b3;
+}

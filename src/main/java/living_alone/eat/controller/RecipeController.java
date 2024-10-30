@@ -2,7 +2,7 @@ package living_alone.eat.controller;
 
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
-import living_alone.eat.SessionConst;
+import living_alone.eat.web.session.SessionConst;
 import living_alone.eat.domain.Member;
 import living_alone.eat.domain.Recipe;
 import living_alone.eat.file.FileStore;
@@ -29,7 +29,7 @@ public class RecipeController {
 
     @GetMapping
     public String myRecipe() {
-        return "myRecipeForm";
+        return "recipeForm";
     }
 
     @GetMapping("/new")
@@ -47,6 +47,7 @@ public class RecipeController {
         return "redirect:/myRecipeForm";
     }
 
+    // 특정 레시피 가져오기
     @GetMapping("/{id}")
     public String items(@PathVariable Long id, Model model) {
         Optional<Recipe> recipe = recipeService.findById(id);
@@ -54,6 +55,7 @@ public class RecipeController {
         return "recipeForm";
     }
 
+    // 홈 화면 레시피 사진 가져오기
     @ResponseBody
     @GetMapping("/images/{filename}")
     public Resource downloadImage(@PathVariable String filename) throws MalformedURLException {
