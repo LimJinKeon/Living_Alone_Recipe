@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html th:replace="template/layout/nav :: layout(~{::title}, ~{::body})">
+<head>
+    <title>레시피 추가</title>
+</head>
+
+<body>
+    <div class="container mt-5">
+        <h2 class="mb-4">레시피 입력</h2>
+        <form th:action method="post" enctype="multipart/form-data" th:object="${recipeForm}">
+            <div class="mb-3">
+                <label for="recipeTitle" class="form-label">제목</label>
+                <input type="text" class="form-control" th:field="*{recipeTitle}" th:errorclass="field-error"
+                       id="recipeTitle" placeholder="레시피 제목을 입력하세요">
+                <p class="text-danger" th:errors="*{recipeTitle}"></p>
+            </div>
+            <div class="mb-3">
+                <label for="recipeContent" class="form-label">내용</label>
+                <textarea class="form-control" th:field="*{recipeContent}" th:errorclass="field-error"
+                          id="recipeContent" rows="15" placeholder="레시피 내용을 입력하세요"></textarea>
+                <p class="text-danger" th:errors="*{recipeContent}"></p>
+            </div>
+            <div class="mb-3">
+                <label for="recipeImage" class="form-label">사진</label>
+                <input class="form-control" th:field="*{recipeImage}" th:errorclass="field-error"
+                       type="file" id="recipeImage" name="recipeImage">
+                <p class="field-error" th:errors="*{recipeImage}"></p>
+            </div>
+            <div class="text-end">
+                <button type="submit" class="btn-lg btn-primary">저장</button>
+            </div>
+        </form>
+    </div>
+    <style>
+        .field-error {
+            border-color: #dc3545;
+            color: #dc3545;
+        }
+    </style>
+</body>
+</html>

@@ -20,21 +20,13 @@ public class ChatbotController {
 
     private final ChatbotService chatbotService;
 
-//    @PostMapping("/message")
-//    public ResponseEntity<String> sendMessage(@RequestBody Map<String, String> request) {
-//        String userMessage = request.get("message");
-//        String response = chatbotService.getChatbotResponse(userMessage);
-//        return ResponseEntity.ok(response);
-//    }
     @PostMapping("/message")
     public ResponseEntity<Map<String, String>> sendMessage(@RequestBody Map<String, String> request,
                                                            @AuthenticationPrincipal UserDetails userDetails) {
         // 로그인한 사용자 아이디 가져오기
-        String userId = "";
-        if (userDetails != null) {
-            userId = userDetails.getUsername();
-        }
+        String userId = userDetails.getUsername();
 
+        // 사용자 메시지를 가져온 후 챗봇 응답 생성
         String userMessage = request.get("message");
         String response = chatbotService.getChatbotResponse(userMessage, userId);
 
@@ -43,4 +35,11 @@ public class ChatbotController {
 
         return ResponseEntity.ok(responseBody);
     }
+
+    //    @PostMapping("/message")
+//    public ResponseEntity<String> sendMessage(@RequestBody Map<String, String> request) {
+//        String userMessage = request.get("message");
+//        String response = chatbotService.getChatbotResponse(userMessage);
+//        return ResponseEntity.ok(response);
+//    }
 }

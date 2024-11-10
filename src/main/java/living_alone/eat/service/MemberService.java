@@ -1,9 +1,8 @@
 package living_alone.eat.service;
 
 import living_alone.eat.domain.Member;
-import living_alone.eat.domain.Refrigerator;
 import living_alone.eat.domain.Role;
-import living_alone.eat.exception.MyDuplicateId;
+import living_alone.eat.exception.MyDuplicateIdException;
 import living_alone.eat.repository.MemberRepository;
 import living_alone.eat.web.domain.dto.AddMemberForm;
 import lombok.RequiredArgsConstructor;
@@ -11,7 +10,6 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -28,7 +26,7 @@ public class MemberService {
         // 아이디 중복 확인
         boolean duplicate = duplicatedIdCheck(form.getLoginId());
         if (duplicate) {
-            throw new MyDuplicateId("이미 존재하는 아이디입니다");
+            throw new MyDuplicateIdException("이미 존재하는 아이디입니다");
         }
 
         // 비밀번호 암호화 및 관리자 확인
@@ -53,14 +51,5 @@ public class MemberService {
 
     public Optional<Member> findByLoginId(String loginId) {
         return memberRepository.findByLoginId(loginId);
-    }
-
-    public Optional<Member> findByUsername(String name) {
-        return memberRepository.findByUsername(name);
-    }
-
-    @Transactional
-    public void delete(Long id) {
-        memberRepository.deleteById(id);
     }
 }

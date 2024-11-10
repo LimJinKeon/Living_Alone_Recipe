@@ -34,4 +34,4 @@ file:
 chatbot:
   api:
     url: "https://api.openai.com/v1/chat/completions"
-    
+    # ChatGPT API는 커밋 시 제거

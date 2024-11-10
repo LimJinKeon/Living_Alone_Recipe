@@ -1,23 +1,30 @@
 package living_alone.eat.controller;
 
-import jakarta.servlet.http.HttpServletRequest;
-import jakarta.servlet.http.HttpSession;
-import living_alone.eat.web.session.SessionConst;
+import jakarta.validation.Valid;
 import living_alone.eat.domain.Member;
 import living_alone.eat.domain.Recipe;
+import living_alone.eat.exception.RecipeNotFoundException;
 import living_alone.eat.file.FileStore;
+import living_alone.eat.service.MemberService;
 import living_alone.eat.service.RecipeService;
 import living_alone.eat.web.domain.dto.RecipeForm;
 import lombok.RequiredArgsConstructor;
 import org.springframework.core.io.Resource;
 import org.springframework.core.io.UrlResource;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import java.io.File;
 import java.io.IOException;
 import java.net.MalformedURLException;
-import java.util.Optional;
+import java.time.format.DateTimeFormatter;
+import java.util.List;
+
+import static living_alone.eat.config.UserSessionUtil.getCurrentLoginId;
 
 @Controller
 @RequestMapping("/recipes")
@@ -26,33 +33,79 @@ public class RecipeController {
 
     private final RecipeService recipeService;
     private final FileStore fileStore;
+    private final MemberService memberService;
 
+    // 내 레시피
     @GetMapping
-    public String myRecipe() {
-        return "recipeForm";
+    public String myRecipe(Model model) {
+        List<Recipe> recipes = recipeService.findAllByMemberId(getCurrentLoginId());
+        model.addAttribute("myRecipes", recipes);
+        return "menu/recipes/myRecipe";
     }
 
+    // 신규 레시피 저장 폼
     @GetMapping("/new")
     public String newRecipe(@ModelAttribute("recipeForm") RecipeForm form) {
-        return "addRecipeForm";
+        return "menu/recipes/addRecipeForm";
     }
 
+    // 신규 레시피 저장
     @PostMapping("/new")
-    public String saveRecipe(@ModelAttribute RecipeForm form, HttpServletRequest request) throws IOException {
-        HttpSession session = request.getSession(false);
-        Member member = (Member) session.getAttribute(SessionConst.LOGIN_MEMBER);
+    public String saveRecipe(@Valid @ModelAttribute RecipeForm form, BindingResult result, RedirectAttributes redirectAttributes) throws IOException {
+        if (result.hasErrors()) {
+            return "menu/recipes/addRecipeForm";
+        }
 
-        recipeService.save(form, member);
+        Recipe recipe = recipeService.save(form, getCurrentLoginId());
+        redirectAttributes.addAttribute("recipeId", recipe.getId());
 
-        return "redirect:/myRecipeForm";
+        return "redirect:/recipes/{recipeId}";
+    }
+
+    // 레시피 수정 폼
+    @GetMapping("/edit/{id}")
+    public String editRecipeForm(@PathVariable("id") Long id, Model model) {
+        Recipe recipe = recipeService.findById(id).orElseThrow(RecipeNotFoundException::new);
+
+        RecipeForm recipeForm = new RecipeForm(recipe.getRecipeTitle(), recipe.getRecipeContent());
+        model.addAttribute("editRecipeForm", recipeForm);
+
+        return "menu/recipes/editRecipeForm";
+    }
+
+    // 레시피 수정
+    @PostMapping("/edit/{id}")
+    public String editRecipe(@Valid @ModelAttribute("editRecipeForm") RecipeForm form, BindingResult result,
+                             @PathVariable("id") Long id) throws IOException {
+        if (result.hasErrors()) {
+            return "menu/recipes/editRecipeForm";
+        }
+        recipeService.update(id, form);
+
+        return "redirect:/recipes/{id}";
     }
 
     // 특정 레시피 가져오기
     @GetMapping("/{id}")
     public String items(@PathVariable Long id, Model model) {
-        Optional<Recipe> recipe = recipeService.findById(id);
-        model.addAttribute("recipe", recipe.orElse(null));
-        return "recipeForm";
+        Recipe recipe = recipeService.findById(id).orElse(null);
+        Member member = memberService.findByLoginId(getCurrentLoginId()).orElseThrow(() -> new UsernameNotFoundException("사용자를 찾을 수 없습니다"));
+        boolean myRecipe = false;
+
+        // 내 레시피인지 확인
+        if (member.getId() == recipe.getMember().getId()) myRecipe = true;
+
+        // LocalDateTime을 특정 포맷으로 변환 후 문자열을 반환
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+        String formattedCreatedDate = recipe.getCreatedDate().format(formatter);
+        String formattedModifiedDate = recipe.getLastModifiedDate().format(formatter);
+
+        model.addAttribute("recipe", recipe);
+        model.addAttribute("myRecipe", myRecipe);
+        model.addAttribute("createdDate", formattedCreatedDate);
+        model.addAttribute("modifiedDate", formattedModifiedDate);
+
+        return "menu/recipes/recipeForm";
     }
 
     // 홈 화면 레시피 사진 가져오기

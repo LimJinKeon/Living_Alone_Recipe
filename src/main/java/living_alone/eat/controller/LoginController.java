@@ -4,7 +4,7 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 import jakarta.validation.Valid;
 import living_alone.eat.domain.Member;
-import living_alone.eat.exception.MyDuplicateId;
+import living_alone.eat.exception.MyDuplicateIdException;
 import living_alone.eat.service.MemberService;
 import living_alone.eat.web.domain.dto.AddMemberForm;
 import living_alone.eat.web.domain.dto.LoginForm;
@@ -40,7 +40,7 @@ public class LoginController {
         try {
             // 아이디 저장
             memberService.save(form);
-        } catch (MyDuplicateId e) {
+        } catch (MyDuplicateIdException e) {
             // 아이디 중복
             result.rejectValue("loginId", "duplicate");
             return "members/addMemberForm";
