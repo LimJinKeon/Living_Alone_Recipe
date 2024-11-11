@@ -21,7 +21,7 @@ import java.util.Optional;
 @Controller
 @Slf4j
 @RequiredArgsConstructor
-public class LoginController {
+public class MemberController {
 
     private final MemberService memberService;
 

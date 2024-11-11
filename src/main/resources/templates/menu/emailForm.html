@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html th:replace="template/layout/nav_link :: layout(~{::title}, ~{::body}, ~{::link}, ~{::script})">
+<head>
+    <title>쇼핑 리스트</title>
+    <link rel="stylesheet" href="../../static/css/emailForm.css" th:href="@{/css/emailForm.css}">
+</head>
+
+<body>
+    <div class="container mt-5" style="width: 800px;">
+        <div class="card notepad-card">
+            <div class="card-body">
+                <h5 class="card-title">메모장</h5>
+                <!-- 메모장 각 줄 -->
+                <div contenteditable="true" class="notepad-line"></div>
+                <div contenteditable="true" class="notepad-line"></div>
+                <div contenteditable="true" class="notepad-line"></div>
+                <div contenteditable="true" class="notepad-line"></div>
+                <div contenteditable="true" class="notepad-line"></div>
+                <div contenteditable="true" class="notepad-line"></div>
+                <div contenteditable="true" class="notepad-line"></div>
+                <div contenteditable="true" class="notepad-line"></div>
+                <div contenteditable="true" class="notepad-line"></div>
+                <div contenteditable="true" class="notepad-line"></div>
+                <div contenteditable="true" class="notepad-line"></div>
+                <div contenteditable="true" class="notepad-line"></div>
+                <div contenteditable="true" class="notepad-line"></div>
+                <div class="d-flex justify-content-end">
+                    <button class="btn btn-primary mt-3" id="sendMemoButton">전송</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 로딩 오버레이 -->
+    <div class="loading-overlay d-flex justify-content-center align-items-center" style="display: none!important;">
+        <div class="spinner-border text-primary" role="status">
+        </div>
+    </div>
+
+    <!-- jQuery 먼저 설정해야함 -->
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
+    <script th:src="@{/js/emailForm.js}"></script>
+</body>
+</html>

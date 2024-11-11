@@ -6,6 +6,7 @@ import living_alone.eat.exception.MyDuplicateIdException;
 import living_alone.eat.repository.MemberRepository;
 import living_alone.eat.web.domain.dto.AddMemberForm;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -14,6 +15,7 @@ import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
+@Slf4j
 @Transactional(readOnly = true)
 public class MemberService {
 
@@ -32,7 +34,7 @@ public class MemberService {
         // 비밀번호 암호화 및 관리자 확인
         String encodedPassword = passwordEncoder.encode(form.getPassword());
         Role role = Role.USER;
-        if (form.getLoginId() == "admin") {
+        if (form.getLoginId().equals("admin")) {
             role = Role.ADMIN;
         }
 
@@ -40,8 +42,11 @@ public class MemberService {
                 .username(form.getUsername())
                 .loginId(form.getLoginId())
                 .password(encodedPassword)
+                .email(form.getEmail())
                 .role(role)
                 .build();
+        log.info(member.toString());
+
         return memberRepository.save(member);
     }
 

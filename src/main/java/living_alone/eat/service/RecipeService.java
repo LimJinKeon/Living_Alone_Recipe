@@ -9,6 +9,7 @@ import living_alone.eat.repository.MemberRepository;
 import living_alone.eat.repository.RecipeRepository;
 import living_alone.eat.web.domain.dto.RecipeForm;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -19,6 +20,7 @@ import java.util.Optional;
 
 @Service
 @Transactional(readOnly = true)
+@Slf4j
 @RequiredArgsConstructor
 public class RecipeService {
 
@@ -43,6 +45,7 @@ public class RecipeService {
                             .uploadFileName(uploadFile.getUploadFileName())
                             .storeFileName(uploadFile.getStoreFileName())
                             .build();
+        log.info(recipe.toString());
 
         return recipeRepository.save(recipe);
     }
@@ -58,6 +61,7 @@ public class RecipeService {
 
         recipe.update(form.getRecipeTitle(), form.getRecipeContent(),
                 uploadFile.getUploadFileName(), uploadFile.getStoreFileName());
+        log.info(recipe.toString());
 
         return recipe;
     }

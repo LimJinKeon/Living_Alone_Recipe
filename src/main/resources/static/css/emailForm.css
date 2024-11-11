@@ -1,0 +1,35 @@
+.notepad-card {
+    padding: 20px;
+    background-color: #fdfd96; /* 메모장 배경 색상 */
+}
+
+.notepad-line {
+    width: 100%;
+    border-bottom: 1px dashed #ddd;
+    padding: 10px 0;
+    color: #333;
+    font-size: 16px;
+}
+
+.notepad-line:focus {
+    outline: none;
+    border-bottom: 1px dashed #666;
+}
+
+.loading-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(255, 255, 255, 0.8);
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+}
+
+.spinner-border {
+    width: 4rem;
+    height: 4rem;
+    border-width: 0.3rem;
+}

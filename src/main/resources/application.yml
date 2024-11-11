@@ -24,6 +24,15 @@ spring:
   messages:
     basename: messages, errors
 
+  mail:
+    host: smtp.gmail.com
+    port: 587
+    username: 0907john24@gmail.com
+    password: 
+    properties.mail.smtp:
+      auth: true
+      starttls.enable: true
+
 logging.level:
     org.hibernate.SQL: debug
     org.hibernate.type: trace
@@ -35,3 +44,4 @@ chatbot:
   api:
     url: "https://api.openai.com/v1/chat/completions"
     # ChatGPT API는 커밋 시 제거
+
