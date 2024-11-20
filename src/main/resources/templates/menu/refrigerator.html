@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html th:replace="template/layout/nav :: layout(~{::title}, ~{::body})">
+<head>
+    <title>내 냉장고</title>
+</head>
+
+<body>
+    <div class="container mt-5">
+        <div class="row">
+            <!-- 이미지 카드 영역 -->
+            <div class="col-md-8">
+                <p class="text-center mb-4 jua-regular" style="font-size: 2.5rem">냉장고 재료들</p>
+                <div class="row row-cols-1 row-cols-md-6 g-3">
+                    <div class="col" th:each="ingredient : ${ingrediens}">
+                        <div class="card h-100">
+                            <!-- 이미지 섹션 -->
+                            <img th:src="|/refrigerator/ingredients/images/${ingredient.name}|"
+                                 class="card-img-top ingredient-image" th:onerror="|this.src='/refrigerator/ingredients/images/물음표'|" alt="Ingredient Image">
+                            <div class="card-body text-center" style="background-color: #fbf8f6; padding-bottom: 8px">
+                                <h6 class="card-title jua-regular" style="font-size: 1.2rem" th:text="${ingredient.name}">재료명</h6>
+                                <p class="card-text jua-regular" style="font-size: 1.2rem">
+                                    수량: <span th:text="${ingredient.quantity}">0</span>
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 재료 추가 폼 -->
+            <div class="col-md-3 ms-auto">
+                <p class="mb-4 jua-regular" style="font-size: 2rem">재료 추가</p>
+                <form th:action method="post" enctype="multipart/form-data">
+                    <div class="mb-3">
+                        <label for="ingredientName" class="form-label jua-regular" style="font-size: 1.5rem">재료 이름</label>
+                        <input type="text" class="form-control rounded-pill text-center" id="ingredientName" name="name" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="ingredientQuantity" class="form-label jua-regular" style="font-size: 1.5rem">수량</label>
+                        <input type="number" class="form-control rounded-pill text-center" id="ingredientQuantity" name="quantity" required>
+                    </div>
+                    <button type="submit" class="btn btn-primary w-50 rounded-pill jua-regular float-end" style="font-size: 1.5rem">추 가</button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Jua&display=swap');
+
+        .ingredient-image {
+            width: 100%; /* 카드의 너비에 맞게 설정 */
+            height: 150px; /* 일정한 높이 지정 */
+            object-fit: contain; /* 이미지 비율 유지하며 크기 조정 */
+        }
+        .jua-regular {
+            font-family: "Jua", sans-serif;
+            font-weight: 400;
+            font-style: normal;
+        }
+    </style>
+
+</body>
+</html>

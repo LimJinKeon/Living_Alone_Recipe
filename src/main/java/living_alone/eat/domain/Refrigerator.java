@@ -1,10 +1,14 @@
 package living_alone.eat.domain;
 
 import jakarta.persistence.*;
-import lombok.Getter;
+import lombok.*;
 
 @Entity
 @Getter
+@Builder
+@AllArgsConstructor
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
+@ToString(of = {"id", "name", "quantity"})
 public class Refrigerator extends DateEntity {
 
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)

@@ -10,9 +10,9 @@ import java.io.IOException;
 import java.util.UUID;
 
 @Component
-public class FileStore {
+public class RecipeImageStore {
 
-    @Value("${file.dir}")
+    @Value("${recipe.dir}")
     private String fileDir;
 
     public String getFullPath(String filename) {

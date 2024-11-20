@@ -12,7 +12,7 @@
             <div class="col-2 mb-4" th:each="recipe : ${myRecipes}">
                 <div class="card recipe-card" style="border-radius: 10%; cursor: pointer" th:onclick="|location.href='/recipes/${recipe.id}'|">
                     <img th:src="|/recipes/images/${recipe.getStoreFileName}|" class="card-img-top"
-                         alt="Recipe Image" style="border-top-right-radius: 10%; border-top-left-radius: 10%">
+                         alt="Recipe Image" th:alt="${recipe.uploadFileName}" style="border-top-right-radius: 10%; border-top-left-radius: 10%">
                     <div class="card-body">
                         <h5 class="card-title" th:text="${recipe.recipeTitle}">레시피 제목</h5>
                         <p class="card-text recipe-description" th:text="${recipe.recipeContent}">레시피 간단 설명이 이곳에 들어갑니다.</p>
@@ -24,11 +24,12 @@
     </div>
     <style>
         .recipe-card img {
-            height: 230px; /* 이미지 높이 고정 */
-            object-fit: cover; /* 이미지 비율 유지 */
+            height: 230px;      /* 이미지 높이 고정 */
+            object-fit: cover;  /* 이미지 비율 유지 */
         }
         .recipe-description {
-            max-height: 10em;        /* 최대 높이 설정 */
+            height: 3em;             /* 고정 높이 설정 */
+            line-height: 1.5em;      /* 각 줄의 높이 설정 */
             overflow: hidden;        /* 넘치는 부분 숨김 */
             text-overflow: ellipsis; /* 넘칠 경우 ...으로 표시 */
             display: -webkit-box;    /* Flexbox 설정 */

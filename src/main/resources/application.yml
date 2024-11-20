@@ -28,7 +28,8 @@ spring:
     host: smtp.gmail.com
     port: 587
     username: 0907john24@gmail.com
-    password: 
+    # 구글 보안 코드는 커밋 시 제거
+    password:
     properties.mail.smtp:
       auth: true
       starttls.enable: true
@@ -37,11 +38,20 @@ logging.level:
     org.hibernate.SQL: debug
     org.hibernate.type: trace
 
-file:
-  dir: C:/Users/user/Desktop/living_alone_eat/eat/file/
+recipe:
+  dir: C:/Users/user/Desktop/project/file/
+ingredient:
+  dir: C:/Users/user/Desktop/project/ingredients/
 
 chatbot:
   api:
     url: "https://api.openai.com/v1/chat/completions"
     # ChatGPT API는 커밋 시 제거
+    key:
 
+# 한국농수산식품유통공사 api
+#kamis.api.key:
+#kamis.api.url: http://www.kamis.or.kr/service/price/xml.do
+
+#api.url: "https://apis.data.go.kr/1390802/AgriPriceInfoService/getItemPriceList"
+#api.key:

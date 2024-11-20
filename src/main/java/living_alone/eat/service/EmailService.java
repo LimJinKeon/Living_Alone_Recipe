@@ -24,7 +24,7 @@ public class EmailService {
         message.setTo(to);
         message.setSubject("장보기 리스트");
         message.setText(memo);
-        message.setFrom("0907john24@gmail.com");
+//        message.setFrom("0907john24@gmail.com");
 
         mailSender.send(message);
     }

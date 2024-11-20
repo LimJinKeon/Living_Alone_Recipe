@@ -4,7 +4,7 @@ import jakarta.validation.Valid;
 import living_alone.eat.domain.Member;
 import living_alone.eat.domain.Recipe;
 import living_alone.eat.exception.RecipeNotFoundException;
-import living_alone.eat.file.FileStore;
+import living_alone.eat.file.RecipeImageStore;
 import living_alone.eat.service.MemberService;
 import living_alone.eat.service.RecipeService;
 import living_alone.eat.web.domain.dto.RecipeForm;
@@ -18,7 +18,6 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import java.io.File;
 import java.io.IOException;
 import java.net.MalformedURLException;
 import java.time.format.DateTimeFormatter;
@@ -32,7 +31,7 @@ import static living_alone.eat.config.UserSessionUtil.getCurrentLoginId;
 public class RecipeController {
 
     private final RecipeService recipeService;
-    private final FileStore fileStore;
+    private final RecipeImageStore recipeImageStore;
     private final MemberService memberService;
 
     // 내 레시피
@@ -112,6 +111,6 @@ public class RecipeController {
     @ResponseBody
     @GetMapping("/images/{filename}")
     public Resource downloadImage(@PathVariable String filename) throws MalformedURLException {
-        return new UrlResource("file:" + fileStore.getFullPath(filename));
+        return new UrlResource("file:" + recipeImageStore.getFullPath(filename));
     }
 }

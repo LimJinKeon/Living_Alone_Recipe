@@ -9,7 +9,8 @@
         <div class="row">
             <!-- 레시피 이미지 왼쪽에 배치 -->
             <div class="col-md-4">
-                <img id="recipeImage" th:src="|/recipes/images/${recipe.storeFileName}|" class="img-fluid rounded" alt="레시피 이미지">
+                <img id="recipeImage" th:src="|/recipes/images/${recipe.storeFileName}|" class="img-fluid rounded"
+                     alt="레시피 이미지" th:alt="${recipe.uploadFileName}">
             </div>
 
             <!-- 레시피 제목과 내용 오른쪽에 배치 -->

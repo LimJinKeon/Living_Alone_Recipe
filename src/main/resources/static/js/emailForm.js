@@ -28,6 +28,7 @@ $(document).ready(function() {
             },
             error: function(xhr, status, error) {
                 console.error("에러 발생:", error);
+                $('.loading-overlay').attr('style', 'display: none !important;'); // 인라인 스타일로 설정
                 Swal.fire({
                     icon: 'error',
                     title: '실패',

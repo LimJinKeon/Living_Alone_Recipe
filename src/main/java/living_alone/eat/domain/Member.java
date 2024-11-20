@@ -25,9 +25,6 @@ public class Member {
     @OneToMany(mappedBy = "member")
     private List<Refrigerator> refrigerators;
 
-    @OneToOne(mappedBy = "member")
-    private ShopList shopList;
-
     @Enumerated(EnumType.STRING)
     private Role role;
 
