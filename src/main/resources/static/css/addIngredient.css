@@ -1,0 +1,15 @@
+@import url('https://fonts.googleapis.com/css2?family=Jua&display=swap');
+.ingredient-image {
+    width: 100%; /* 카드의 너비에 맞게 설정 */
+    height: 150px; /* 일정한 높이 지정 */
+    object-fit: contain; /* 이미지 비율 유지하며 크기 조정 */
+}
+.jua-regular {
+    font-family: "Jua", sans-serif;
+    font-weight: 400;
+    font-style: normal;
+}
+.col-1-8 {
+    flex: 0 0 calc(100% / 8); /* 한 줄에 8개 */
+    max-width: calc(100% / 8); /* 동일한 최대 크기 */
+}

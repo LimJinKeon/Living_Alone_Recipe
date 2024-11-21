@@ -8,7 +8,7 @@
 <div class="container-fluid">
     <div class="row">
         <!-- 왼쪽 영역: 레시피 리스트를 2단으로 나눔 -->
-        <h4 class="mb-2 mx-4 py-2">오늘의 레시피</h4>
+        <h4 class="mb-2 mx-4 py-1 bottom-0 jua-regular" style="font-size: 2.3rem">오늘의 레시피</h4>
         <div class="col-md-6 mx-4 card-group">
             <div class="row">
                 <div th:each="recipe : ${recipes}" class="col-md-6 mb-4">
@@ -42,13 +42,13 @@
     </div>
 
     <style>
+        @import url('https://fonts.googleapis.com/css2?family=Jua&display=swap');
         /* 이미지 크기 및 조정 */
         .recipe-image {
             width: 150px;       /* 이미지 너비 설정 */
             height: 154px;      /* 이미지 높이 설정 */
             object-fit: cover;  /* 이미지를 비율에 맞게 잘라냄 */
         }
-
         /* 요리 설명 높이 제한 */
         .recipe-description {
             max-height: 10em;        /* 최대 높이 설정 */
@@ -57,6 +57,11 @@
             display: -webkit-box;    /* Flexbox 설정 */
             -webkit-line-clamp: 2;   /* 최대 3줄 표시 */
             -webkit-box-orient: vertical; /* 수직 방향 설정 */
+        }
+        .jua-regular {
+            font-family: "Jua", sans-serif;
+            font-weight: 400;
+            font-style: normal;
         }
     </style>
 </div>

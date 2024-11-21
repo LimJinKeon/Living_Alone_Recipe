@@ -15,7 +15,7 @@
 
             <!-- 레시피 제목과 내용 오른쪽에 배치 -->
             <div class="col-md-8">
-                <h2 id="recipeTitle" class="display-4" th:text="${recipe.recipeTitle}"></h2>
+                <h2 id="recipeTitle" class="display-4 jua-regular" th:text="${recipe.recipeTitle}"></h2>
                 <p id="recipeContent" class="lead" style="white-space: pre-line;" th:text="${recipe.recipeContent}"></p>
             </div>
 
@@ -31,11 +31,12 @@
 
             <!-- 수정 버튼 표시 (내 레시피인 경우에만) -->
             <div th:if="${myRecipe}" class="mt-3">
-                <a th:href="|/recipes/edit/${recipe.id}|" class="btn-lg btn-primary" style="text-decoration-line: none">수 정</a>
+                <a th:href="|/recipes/edit/${recipe.id}|" class="btn-lg btn-primary jua-regular" style="text-decoration-line: none">수 정</a>
             </div>
         </div>
     </div>
     <style>
+        @import url('https://fonts.googleapis.com/css2?family=Jua&display=swap');
         #recipeImage {
             width: 400px; /* 고정 너비 */
             height: 300px; /* 고정 높이 */
@@ -50,6 +51,11 @@
         #recipeContent {
             font-size: 1.4rem; /* 내용 크기 조정 */
             line-height: 1.8;
+        }
+        .jua-regular {
+            font-family: "Jua", sans-serif;
+            font-weight: 400;
+            font-style: normal;
         }
     </style>
 </body>

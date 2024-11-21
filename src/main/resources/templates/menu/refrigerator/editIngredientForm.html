@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html th:replace="template/layout/nav_link :: layout(~{::title}, ~{::body}, ~{::link}, ~{::script})">
+<head>
+    <title>재료 수정</title>
+    <link rel="stylesheet" href="/css/addIngredient.css"></link>
+</head>
+
+<body>
+    <!-- 이미지 카드 영역 -->
+    <div class="col-md-12 mx-4">
+        <p class="text-center mb-4 my-2 jua-regular" style="font-size: 2.5rem">재료 수정</p>
+        <div class="container">
+            <div class="row g-3"> <!-- 카드 간 간격 설정 -->
+                <div class="col-1-8" th:each="ingredient : ${ingredients}">
+                    <div class="card h-100 position-relative">
+                        <!-- 삭제 버튼 -->
+                        <button th:onclick="|deleteIngredient(${ingredient.id})|" class="btn-close position-absolute top-0 end-0 m-2" aria-label="Delete"></button>
+
+                        <!-- 이미지 섹션 -->
+                        <img th:src="|/refrigerator/ingredients/images/${ingredient.name}|"
+                             class="card-img-top ingredient-image"
+                             th:onerror="|this.src='/refrigerator/ingredients/images/물음표'|"
+                             alt="Ingredient Image">
+
+                        <div class="card-body text-center h-50" style="background-color: #fbf8f6; padding-bottom: 8px">
+                            <p class="card-title jua-regular" style="font-size: 1.4rem" th:text="${ingredient.name}"></p>
+
+                            <!-- 수량 및 버튼 -->
+                            <div class="d-flex justify-content-center align-items-center">
+                                <span class="jua-regular mx-3" style="font-size: 1.4rem; min-width: 50px; text-align: center;" th:text="${ingredient.quantity}">0</span>
+                                <div class="d-flex flex-column align-items-center">
+                                    <button th:onclick="|incrementQuantity(${ingredient.id})|" class="btn btn-sm btn-primary mb-1 rounded-pill"
+                                            style="width: 30px; height: 30px; line-height: 12px">+</button>
+                                    <button th:onclick="|decrementQuantity(${ingredient.id})|" class="btn btn-sm btn-primary rounded-pill"
+                                            style="width: 30px; height: 30px; line-height: 12px">-</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
+    <script src="/js/editIngredient.js"></script>
+</body>
+</html>

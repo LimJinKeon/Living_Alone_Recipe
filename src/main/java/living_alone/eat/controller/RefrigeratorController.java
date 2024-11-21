@@ -6,6 +6,7 @@ import living_alone.eat.repository.RefrigeratorRepository;
 import living_alone.eat.service.RefrigeratorService;
 import living_alone.eat.web.domain.dto.RefrigeratorForm;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.core.io.Resource;
 import org.springframework.core.io.UrlResource;
 import org.springframework.stereotype.Controller;
@@ -18,6 +19,7 @@ import java.util.List;
 
 @Controller
 @RequiredArgsConstructor
+@Slf4j
 @RequestMapping("/refrigerator/ingredients")
 public class RefrigeratorController {
 
@@ -26,8 +28,9 @@ public class RefrigeratorController {
     private final IngredientImageStore ingredientImageStore;
 
     // 내 냉장고 폼
-    @GetMapping
+    @GetMapping("/add")
     public String refrigeratorForm(Model model) {
+        // 내 냉장고의 모든 식재료 가져오기
         List<Refrigerator> ingredients = refrigeratorRepository.findAll();
         List<RefrigeratorForm> forms = new ArrayList<>();
 
@@ -38,16 +41,56 @@ public class RefrigeratorController {
                         .build());
 
         }
-        model.addAttribute("ingrediens", forms);
-        return "menu/refrigerator";
+        model.addAttribute("ingredients", forms);
+        return "menu/refrigerator/addIngredientForm";
     }
 
     // 냉장고 재료 추가
-    @PostMapping
+    @PostMapping("/add")
     public String addIngredient(RefrigeratorForm form) {
         refrigeratorService.save(form);
 
-        return "redirect:/refrigerator/ingredients";
+        return "redirect:/refrigerator/ingredients/add";
+    }
+
+    // 냉장고 재료 수정 폼
+    @GetMapping("/edit")
+    public String editIngredient(Model model) {
+        // 내 냉장고의 모든 식재료 가져오기
+        List<Refrigerator> ingredients = refrigeratorRepository.findAll();
+        List<RefrigeratorForm> forms = new ArrayList<>();
+
+        for (Refrigerator ingredient : ingredients) {
+            forms.add(RefrigeratorForm.builder()
+                    .id(ingredient.getId())
+                    .name(ingredient.getName())
+                    .quantity(ingredient.getQuantity())
+                    .build());
+
+        }
+        model.addAttribute("ingredients", forms);
+        return "menu/refrigerator/editIngredientForm";
+    }
+
+    // 재료 삭제
+    @PostMapping("/{id}/delete")
+    public String deleteIngredient(@PathVariable("id") Long id) {
+        refrigeratorService.deleteIngredient(id);
+        return "redirect:/refrigerator/ingredients/edit";
+    }
+
+    // 재료 수량 증가
+    @PostMapping("/{id}/increment")
+    public String incrementQuantity(@PathVariable("id") Long id) {
+        refrigeratorService.incrementQuantity(id);
+        return "redirect:/refrigerator/ingredients/edit";
+    }
+
+    // 재료 수량 감소
+    @PostMapping("/{id}/decrement")
+    public String decrementQuantity(@PathVariable("id") Long id) {
+        refrigeratorService.decrementQuantity(id);
+        return "redirect:/refrigerator/ingredients/edit";
     }
 
     // 재료 일러스트 가져오기
@@ -57,6 +100,7 @@ public class RefrigeratorController {
         try {
             return new UrlResource("file:" + ingredientImageStore.getFullPath(ingredientName));
         } catch (MalformedURLException e) {
+            log.info("식재료 이미지가 없습니다.");
             throw new RuntimeException(e);
         }
     }

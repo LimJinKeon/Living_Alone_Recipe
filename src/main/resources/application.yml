@@ -29,14 +29,14 @@ spring:
     port: 587
     username: 0907john24@gmail.com
     # 구글 보안 코드는 커밋 시 제거
-    password:
+    password: 
     properties.mail.smtp:
       auth: true
       starttls.enable: true
 
 logging.level:
     org.hibernate.SQL: debug
-    org.hibernate.type: trace
+    org.hibernate.orm.jdbc.bind: trace
 
 recipe:
   dir: C:/Users/user/Desktop/project/file/

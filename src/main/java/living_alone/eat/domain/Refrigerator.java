@@ -25,11 +25,15 @@ public class Refrigerator extends DateEntity {
     @JoinColumn(name = "ingredient_id")
     private Ingredient ingredient;
 
-    public void removeIngredient(int quantity) {
-        int restQuantity = this.quantity - quantity;
-        if (restQuantity < 0) {
-//            throw new NotEnoughStockException("재고가 없습니다");
-        }
-        this.quantity = restQuantity;
+    // 수량 증가
+    public Refrigerator increaseQuantity() {
+        quantity++;
+        return this;
+    }
+
+    // 수량 감소
+    public Refrigerator decrementQuantity() {
+        this.quantity = this.quantity - 1;
+        return this;
     }
 }
