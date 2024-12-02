@@ -70,7 +70,7 @@ public class ChatbotService {
         Map<String, String> systemMessage = new HashMap<>();
         systemMessage.put("role", "system");
         systemMessage.put("content", "자취생들을 위한 간단하게 만들 수 있는 쉬운 음식 레시피를 추천해준다. " +
-                "레시피의 조리과정과 식재료들의 종류 및 무게는 자세하게 나타낸다. " +
+                "레시피의 조리과정과 식재료들의 무게는 g단위로 자세하게 표시한다. " +
                 "복잡한 레시피보다는 간단한 레시피 위주로 추천한다. " +
                 "냉장고에 있는 재료 외에 다른 레시피를 원하면 상세히 알려준다." +
                 "특정 레시피를 알려달라고 하면 냉장고에 있는 재료를 무시하고 알려준다");

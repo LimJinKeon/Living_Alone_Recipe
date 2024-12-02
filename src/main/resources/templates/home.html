@@ -7,17 +7,17 @@
 <body>
 <div class="container-fluid">
     <div class="row">
-        <!-- 왼쪽 영역: 레시피 리스트를 2단으로 나눔 -->
+        <!-- 레시피 리스트 -->
         <h4 class="mb-2 mx-4 py-1 bottom-0 jua-regular" style="font-size: 2.3rem">오늘의 레시피</h4>
-        <div class="col-md-6 mx-4 card-group">
+        <div class="col-md-9 mx-4">
             <div class="row">
-                <div th:each="recipe : ${recipes}" class="col-md-6 mb-4">
+                <div th:each="recipe : ${recipes}" class="col-md-4 mb-4">
                     <!-- 카드 전체를 Flexbox로 설정 -->
                     <div class="card h-100 d-flex flex-row rounded" th:onclick="|location.href='@{/recipes/{recipeId}(recipeId=${recipe.id})}'|" style="cursor: pointer">
                         <img th:src="|/recipes/images/${recipe.storeFileName}|" src="../static/img/morning_refrigerator.png"
                              class="recipe-image" th:alt="${recipe.uploadFileName}" alt="Recipe image">
-                        <div class="card-body d-flex flex-column"> <!-- Flexbox로 설정 -->
-                            <h5 class="card-title" th:text="${recipe.recipeTitle}">요리명</h5>
+                        <div class="card-body d-flex flex-column">
+                            <h5 class="card-title jua-regular my-0" th:text="${recipe.recipeTitle}">요리명</h5>
                             <p class="card-text recipe-description" th:text="${recipe.recipeContent}">요리 설명</p>
                             <div class="mt-auto">
                                 <div class="card-footer px-0 py-0">
@@ -30,15 +30,23 @@
             </div>
         </div>
 
-        <!-- 오른쪽 영역 -->
-<!--        <div class="col-md-6 my-4">
-            <tr th:each="item : ${items}">
-                <td th:text="${item.itemName}"></td>
-                <td th:text="${item.price}"></td>
-                <td th:text="${item.market}"></td>
-            </tr>
-        </div>-->
-
+        <!-- 오른쪽 고정 영역: 농산물 당일 가격 정보 -->
+        <div class="col-md-2 position-fixed end-0" style="top: 20%; max-height: 80%; overflow-y: auto;">
+            <h4 class="mb-2 jua-regular" style="font-size: 2.3rem">농산물 당일 가격</h4>
+            <div class="row g-3">
+                <div class="col-md-12" th:each="item : ${recentlyPriceTrend}">
+                    <div class="card h-100">
+                        <div class="card-body">
+                            <h5 class="card-title jua-regular" th:text="${item.itemName}"></h5>
+                            <p class="card-text">
+                                <strong>무게:</strong> <span th:text="${item.unit}"></span><br>
+                                <strong>가격:</strong> <span th:text="${item.dpr1} + '원'"></span>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
 
     <style>
@@ -55,7 +63,7 @@
             overflow: hidden;        /* 넘치는 부분 숨김 */
             text-overflow: ellipsis; /* 넘칠 경우 ...으로 표시 */
             display: -webkit-box;    /* Flexbox 설정 */
-            -webkit-line-clamp: 2;   /* 최대 3줄 표시 */
+            -webkit-line-clamp: 2;   /* 최대 2줄 표시 */
             -webkit-box-orient: vertical; /* 수직 방향 설정 */
         }
         .jua-regular {

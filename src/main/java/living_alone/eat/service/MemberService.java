@@ -45,7 +45,7 @@ public class MemberService {
                 .email(form.getEmail())
                 .role(role)
                 .build();
-        log.info(member.toString());
+        log.info("회원가입한 사용자: " + member.toString());
 
         return memberRepository.save(member);
     }

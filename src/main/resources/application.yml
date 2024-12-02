@@ -1,6 +1,5 @@
 spring:
-  application:
-    name=eat
+  application: name=eat
 
   datasource:
     url: jdbc:mariadb://localhost:3306/living_alone
@@ -29,7 +28,7 @@ spring:
     port: 587
     username: 0907john24@gmail.com
     # 구글 보안 코드는 커밋 시 제거
-    password: 
+    password:
     properties.mail.smtp:
       auth: true
       starttls.enable: true
@@ -46,12 +45,11 @@ ingredient:
 chatbot:
   api:
     url: "https://api.openai.com/v1/chat/completions"
-    # ChatGPT API는 커밋 시 제거
-    key:
+    # ChatGPT API Key는 커밋 시 제거
+    key: ""
 
-# 한국농수산식품유통공사 api
-#kamis.api.key:
-#kamis.api.url: http://www.kamis.or.kr/service/price/xml.do
-
-#api.url: "https://apis.data.go.kr/1390802/AgriPriceInfoService/getItemPriceList"
-#api.key:
+# 농산물유통정보 KAMIS api
+# Key, ID 커밋 시 제거
+kamis.api.key: ""
+kamis.api.id: ""
+kamis.api.url: "https://www.kamis.or.kr/service/price/xml.do?action=dailySalesList&p_returntype=json"

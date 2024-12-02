@@ -32,6 +32,7 @@
             <!-- 수정 버튼 표시 (내 레시피인 경우에만) -->
             <div th:if="${myRecipe}" class="mt-3">
                 <a th:href="|/recipes/edit/${recipe.id}|" class="btn-lg btn-primary jua-regular" style="text-decoration-line: none">수 정</a>
+                <a th:href="|/recipes/delete/${recipe.id}|" class="btn-lg btn-danger jua-regular" style="text-decoration-line: none">삭 제</a>
             </div>
         </div>
     </div>

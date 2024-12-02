@@ -18,6 +18,7 @@ public class UploadFile {
         this.storeFileName = storeFileName;
     }
 
+    // 이미지 재업로드
     public void updateFile(String uploadFileName, String storeFileName) {
         this.uploadFileName = uploadFileName;
         this.storeFileName = storeFileName;

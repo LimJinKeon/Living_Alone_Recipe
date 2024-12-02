@@ -84,6 +84,15 @@ public class RecipeController {
         return "redirect:/recipes/{id}";
     }
 
+    // 레시피 삭제
+    @GetMapping("/delete/{id}")
+    public String deleteRecipe(@PathVariable("id") Long id) {
+        Recipe recipe = recipeService.findById(id).orElseThrow(RecipeNotFoundException::new);
+        recipeService.deleteById(id);
+
+        return "redirect:/recipes";
+    }
+
     // 특정 레시피 가져오기
     @GetMapping("/{id}")
     public String items(@PathVariable Long id, Model model) {

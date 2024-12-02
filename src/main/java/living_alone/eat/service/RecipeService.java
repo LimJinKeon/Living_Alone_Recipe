@@ -83,4 +83,9 @@ public class RecipeService {
         }
         return null;
     }
+
+    @Transactional
+    public void deleteById(Long id) {
+        recipeRepository.deleteById(id);
+    }
 }

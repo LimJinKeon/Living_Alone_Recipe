@@ -62,4 +62,8 @@ public class RefrigeratorService {
         }
         return decrementedQuantity;
     }
+
+    public Refrigerator findByName(String name) {
+        return refrigeratorRepository.findByName(name).orElse(null);
+    }
 }

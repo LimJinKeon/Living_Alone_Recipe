@@ -21,11 +21,4 @@ public class AddMemberForm {
 
     @NotEmpty(message = "{required.email}")
     private String email;
-
-    @Enumerated(EnumType.STRING)
-    private String role;
-
-    private String city;
-    private String street;
-    private String zipcode;
 }
