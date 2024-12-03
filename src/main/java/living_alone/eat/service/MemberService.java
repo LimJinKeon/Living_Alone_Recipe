@@ -44,6 +44,7 @@ public class MemberService {
                 .password(encodedPassword)
                 .email(form.getEmail())
                 .role(role)
+                .address(form.getAddress())
                 .build();
         log.info("회원가입한 사용자: " + member.toString());
 

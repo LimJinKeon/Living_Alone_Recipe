@@ -29,7 +29,6 @@ public class KamisService {
         StringBuilder urlBuilder = new StringBuilder(API_URL);
         urlBuilder.append("&p_cert_key=").append(API_KEY);
         urlBuilder.append("&p_cert_id=").append(API_ID);
-        System.out.println(urlBuilder);
 
         // URL 연결 설정
         URL url = new URL(urlBuilder.toString());
@@ -79,7 +78,6 @@ public class KamisService {
                 priceList.add(dto);
             }
         }
-        System.out.println("priceList = " + priceList);
         return priceList;
     }
 }

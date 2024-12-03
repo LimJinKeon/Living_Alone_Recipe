@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html th:replace="template/layout/nav_link :: layout(~{::title}, ~{::body}, ~{::link}, ~{::script})">
+<head>
+    <title>주변 마트</title>
+    <link rel="stylesheet" href="../../static/css/map.css" th:href="@{/css/map.css}">
+</head>
+<body>
+    <script type="text/javascript" src="https://dapi.kakao.com/v2/maps/sdk.js?appkey=//your_kakao_api&libraries=services"></script>
+    <div id="map"></div>
+    <div class="controls">
+        <button id="btnRoadmap" class="btn selected_btn" onclick="setMapType('roadmap')">지도</button>
+        <button id="btnSkyview" class="btn" onclick="setMapType('skyview')">스카이뷰</button>
+        <button class="btn" onclick="zoomIn()">확대</button>
+        <button class="btn" onclick="zoomOut()">축소</button>
+    </div>
+    <script src="../../static/js/map.js" th:src="@{/js/map.js}"></script>
+</body>
+</html>

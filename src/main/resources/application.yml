@@ -49,7 +49,7 @@ chatbot:
     key: ""
 
 # 농산물유통정보 KAMIS api
-# Key, ID 커밋 시 제거
+# Key, ID는 커밋 시 제거
 kamis.api.key: ""
 kamis.api.id: ""
-kamis.api.url: "https://www.kamis.or.kr/service/price/xml.do?action=dailySalesList&p_returntype=json"
+kamis.api.url: "http://www.kamis.or.kr/service/price/xml.do?action=dailySalesList&p_returntype=json"

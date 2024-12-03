@@ -21,4 +21,6 @@ public class AddMemberForm {
 
     @NotEmpty(message = "{required.email}")
     private String email;
+
+    private String address;
 }

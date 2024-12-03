@@ -28,16 +28,16 @@ public class Member {
     @Enumerated(EnumType.STRING)
     private Role role;
 
-    @Embedded
-    private Address address;
+    private String address;
 
     @Builder
-    public Member(String loginId, String password, String username, String email, Role role) {
+    public Member(String loginId, String password, String username, String email, Role role, String address) {
         this.loginId = loginId;
         this.password = password;
         this.username = username;
         this.email = email;
         this.role = role;
+        this.address = address;
     }
 
 }
