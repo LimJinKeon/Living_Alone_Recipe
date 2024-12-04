@@ -12,6 +12,10 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Optional;
+
 import static living_alone.eat.config.UserSessionUtil.getCurrentLoginId;
 
 @Service
@@ -63,7 +67,25 @@ public class RefrigeratorService {
         return decrementedQuantity;
     }
 
-    public Refrigerator findByName(String name) {
-        return refrigeratorRepository.findByName(name).orElse(null);
+    // 내 냉장고 재료 가져오기
+    @Transactional(readOnly = true)
+    public List<RefrigeratorForm> findAllByMemberId(String userId) {
+        // 사용자 기본키 가져오기
+        Member member = memberRepository.findByLoginId(userId).orElseThrow(() -> new UsernameNotFoundException("사용자를 찾을 수 없습니다"));
+
+        Optional<List<Refrigerator>> refrigerators = refrigeratorRepository.findAllByMemberId(member.getId());
+        List<RefrigeratorForm> forms = new ArrayList<>();
+
+        // DTO 변환
+        if (refrigerators.isPresent()) {
+            for (Refrigerator refrigerator : refrigerators.get()) {
+                forms.add(RefrigeratorForm.builder()
+                        .id(refrigerator.getId())
+                        .name(refrigerator.getName())
+                        .quantity(refrigerator.getQuantity())
+                        .build());
+            }
+        }
+        return forms;
     }
 }

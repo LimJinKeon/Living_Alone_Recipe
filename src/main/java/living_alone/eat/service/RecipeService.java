@@ -86,6 +86,11 @@ public class RecipeService {
 
     @Transactional
     public void deleteById(Long id) {
+        Optional<Recipe> recipe = recipeRepository.findById(id);
+        // 레시피 사진 삭제
+        if (recipe.isPresent()) {
+            recipeImageStore.deleteFile(recipe.get().getStoreFileName());
+        }
         recipeRepository.deleteById(id);
     }
 }

@@ -11,6 +11,7 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.ResponseEntity;
 import org.springframework.http.HttpStatus;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
@@ -38,15 +39,11 @@ public class ChatbotService {
     public String getChatbotResponse(String message, String userId) {
         RestTemplate restTemplate = new RestTemplate();
 
-        // 사용자 아이디 가져오기
-        Optional<Member> member = memberRepository.findByLoginId(userId);
-        Long id = 0L;
-        if (member.isPresent()) {
-            id = member.get().getId();
-        }
+        // 사용자 기본키 가져오기
+        Member member = memberRepository.findByLoginId(userId).orElseThrow(() -> new UsernameNotFoundException("사용자를 찾을 수 없습니다"));
 
         // 내 냉장고 재료 가져오기
-        Optional<List<Refrigerator>> all = refIngRepository.findAllByMemberId(id);
+        Optional<List<Refrigerator>> all = refIngRepository.findAllByMemberId(member.getId());
         String ingredients = "";
 
         if (all.isPresent()) {

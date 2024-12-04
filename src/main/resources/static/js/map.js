@@ -70,12 +70,12 @@ function displayMarker(place) {
 
         // 커스텀 오버레이 내용 생성
         var content = `
-                        <div class="custom-overlay">
-                            <div class="title">${place.place_name}</div>
-                            <div>주소: ${place.address_name}</div>
-                            <div>${place.phone ? '전화번호: ' + place.phone : '전화번호 없음'}</div>
-                        </div>
-                    `;
+                    <div class="custom-overlay" style="background-color: white; padding: 10px; border: 1px solid #ccc; border-radius: 5px;">
+                        <div class="title" style="font-weight: bold; margin-bottom: 5px;">${place.place_name}</div>
+                        <div>주소: ${place.address_name}</div>
+                        <div>${place.phone ? '전화번호: ' + place.phone : '전화번호 없음'}</div>
+                    </div>
+                `;
 
         // 커스텀 오버레이 생성
         customOverlay = new kakao.maps.CustomOverlay({
@@ -133,7 +133,6 @@ function fetchDefaultAddress() {
                         var coords = new kakao.maps.LatLng(result[0].y, result[0].x);
                         initializeMap(coords.getLat(), coords.getLng());
                     } else {
-                        alert('기본 주소를 찾을 수 없습니다. GPS를 사용합니다.');
                         useGPSLocation();
                     }
                 });
@@ -149,9 +148,17 @@ function useGPSLocation() {
     if (navigator.geolocation) {
         navigator.geolocation.getCurrentPosition(function(position) {
         initializeMap(position.coords.latitude, position.coords.longitude);
-    }, () => alert('GPS 정보를 가져올 수 없습니다.'));
+    }, () => Swal.fire({
+                            icon: 'error',
+                            title: '실패',
+                            text: 'GPS 정보를 가져올 수 없습니다!',
+                        }));
     } else {
-        alert('브라우저가 위치 정보를 지원하지 않습니다.');
+        Swal.fire({
+            icon: 'error',
+            title: '실패',
+            text: '브라우저가 위치정보를 지원하지 않습니다!',
+        });
     }
 }
 

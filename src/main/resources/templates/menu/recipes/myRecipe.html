@@ -10,7 +10,7 @@
         <div class="row">
             <!-- 내 레시피 반복 나열 -->
             <div class="col-2 mb-4" th:each="recipe : ${myRecipes}">
-                <div class="card recipe-card" style="border-radius: 10%; cursor: pointer" th:onclick="|location.href='/recipes/${recipe.id}'|">
+                <div class="card recipe-card" style="border-radius: 10%; cursor: pointer; height: 350px" th:onclick="|location.href='/recipes/${recipe.id}'|">
                     <img th:src="|/recipes/images/${recipe.getStoreFileName}|" class="card-img-top"
                          alt="Recipe Image" th:alt="${recipe.uploadFileName}" style="border-top-right-radius: 10%; border-top-left-radius: 10%">
                     <div class="card-body">
@@ -27,6 +27,12 @@
         .recipe-card img {
             height: 230px;      /* 이미지 높이 고정 */
             object-fit: cover;  /* 이미지 비율 유지 */
+        }
+        .card-title {
+            font-size: 1.2em;       /* 타이틀 크기 조정 */
+            white-space: nowrap;    /* 한 줄로 표시 */
+            overflow: hidden;       /* 넘치는 내용 숨김 */
+            text-overflow: ellipsis; /* 넘칠 경우 ...으로 표시 */
         }
         .recipe-description {
             height: 3em;             /* 고정 높이 설정 */

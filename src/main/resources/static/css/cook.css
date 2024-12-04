@@ -1,11 +1,11 @@
 /* 채팅 컨테이너 중앙 배치 */
 #chat-container {
     position: absolute;
-    top: 55%;
+    top: 60%;
     left: 50%;
     transform: translate(-50%, -50%);
     width: 700px; /* 좌우 넓이 확장 */
-    height: 750px; /* 높이 조정 */
+    height: 725px; /* 높이 조정 */
     border: 1px solid #ccc;
     border-radius: 10px;
     overflow: hidden;

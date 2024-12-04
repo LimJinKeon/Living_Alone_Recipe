@@ -9,5 +9,4 @@ import java.util.Optional;
 public interface RefrigeratorRepository extends JpaRepository<Refrigerator, Long> {
 
     public Optional<List<Refrigerator>> findAllByMemberId(Long userId);
-    public Optional<Refrigerator> findByName(String name);
 }

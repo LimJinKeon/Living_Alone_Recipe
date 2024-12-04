@@ -2,7 +2,6 @@ package living_alone.eat.controller;
 
 import living_alone.eat.domain.Refrigerator;
 import living_alone.eat.file.IngredientImageStore;
-import living_alone.eat.repository.RefrigeratorRepository;
 import living_alone.eat.service.RefrigeratorService;
 import living_alone.eat.web.domain.dto.RefrigeratorForm;
 import lombok.RequiredArgsConstructor;
@@ -14,8 +13,9 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import java.net.MalformedURLException;
-import java.util.ArrayList;
 import java.util.List;
+
+import static living_alone.eat.config.UserSessionUtil.getCurrentLoginId;
 
 @Controller
 @RequiredArgsConstructor
@@ -23,7 +23,6 @@ import java.util.List;
 @RequestMapping("/refrigerator/ingredients")
 public class RefrigeratorController {
 
-    private final RefrigeratorRepository refrigeratorRepository;
     private final RefrigeratorService refrigeratorService;
     private final IngredientImageStore ingredientImageStore;
 
@@ -31,17 +30,9 @@ public class RefrigeratorController {
     @GetMapping("/add")
     public String refrigeratorForm(Model model) {
         // 내 냉장고의 모든 식재료 가져오기
-        List<Refrigerator> ingredients = refrigeratorRepository.findAll();
-        List<RefrigeratorForm> forms = new ArrayList<>();
-
-        for (Refrigerator ingredient : ingredients) {
-            forms.add(RefrigeratorForm.builder()
-                        .name(ingredient.getName())
-                        .quantity(ingredient.getQuantity())
-                        .build());
-
-        }
+        List<RefrigeratorForm> forms = refrigeratorService.findAllByMemberId(getCurrentLoginId());
         model.addAttribute("ingredients", forms);
+
         return "menu/refrigerator/addIngredientForm";
     }
 
@@ -57,18 +48,9 @@ public class RefrigeratorController {
     @GetMapping("/edit")
     public String editIngredient(Model model) {
         // 내 냉장고의 모든 식재료 가져오기
-        List<Refrigerator> ingredients = refrigeratorRepository.findAll();
-        List<RefrigeratorForm> forms = new ArrayList<>();
-
-        for (Refrigerator ingredient : ingredients) {
-            forms.add(RefrigeratorForm.builder()
-                    .id(ingredient.getId())
-                    .name(ingredient.getName())
-                    .quantity(ingredient.getQuantity())
-                    .build());
-
-        }
+        List<RefrigeratorForm> forms = refrigeratorService.findAllByMemberId(getCurrentLoginId());
         model.addAttribute("ingredients", forms);
+
         return "menu/refrigerator/editIngredientForm";
     }
 

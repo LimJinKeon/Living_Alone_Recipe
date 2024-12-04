@@ -35,11 +35,4 @@ public class ChatbotController {
 
         return ResponseEntity.ok(responseBody);
     }
-
-    //    @PostMapping("/message")
-//    public ResponseEntity<String> sendMessage(@RequestBody Map<String, String> request) {
-//        String userMessage = request.get("message");
-//        String response = chatbotService.getChatbotResponse(userMessage);
-//        return ResponseEntity.ok(response);
-//    }
 }
