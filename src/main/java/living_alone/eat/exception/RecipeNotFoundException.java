@@ -1,6 +1,6 @@
 package living_alone.eat.exception;
 
-public class RecipeNotFoundException extends RuntimeException{
+public class RecipeNotFoundException extends RuntimeException {
     public RecipeNotFoundException() {
         super();
     }

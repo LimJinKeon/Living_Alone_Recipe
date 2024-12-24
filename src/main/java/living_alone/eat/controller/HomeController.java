@@ -5,9 +5,11 @@ import living_alone.eat.service.KamisService;
 import living_alone.eat.service.RecipeService;
 import living_alone.eat.web.domain.dto.kamis.DailyPriceDto;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.List;
 
@@ -26,12 +28,34 @@ public class HomeController {
 
     // 홈 화면
     @GetMapping("/home")
-    public String home(Model model) throws Exception {
-        List<Recipe> recipes = recipeService.findAll();
+    public String home(@RequestParam(defaultValue = "0") int page,
+                       @RequestParam(defaultValue = "9") int size,
+                       Model model) throws Exception {
+        Page<Recipe> recipePage = recipeService.findAll(page, size);
         List<DailyPriceDto> recentlyPriceTrend = kamisService.getRecentlyPriceTrend();
-        model.addAttribute("recipes", recipes);
-        model.addAttribute("recentlyPriceTrend", recentlyPriceTrend);
+
+        model.addAttribute("recipes", recipePage.getContent());         // 현재 페이지 데이터
+        model.addAttribute("currentPage", recipePage.getNumber());      // 현재 페이지 번호
+        model.addAttribute("totalPages", recipePage.getTotalPages());   // 전체 페이지 수
+        model.addAttribute("recentlyPriceTrend", recentlyPriceTrend);   // 농산물 당일 가격 데이터
 
         return "home";
+    }
+
+    @GetMapping("/home/search")
+    public String searchRecipes(
+            @RequestParam(defaultValue = "") String keyword,
+            @RequestParam(defaultValue = "0") int page,
+            @RequestParam(defaultValue = "8") int size,
+            Model model) {
+
+        Page<Recipe> recipePage = recipeService.searchRecipes(keyword, page, size);
+
+        model.addAttribute("recipes", recipePage.getContent());
+        model.addAttribute("currentPage", recipePage.getNumber());
+        model.addAttribute("totalPages", recipePage.getTotalPages());
+        model.addAttribute("keyword", keyword);
+
+        return "homeSearchRecipe";
     }
 }

@@ -20,8 +20,9 @@
                 </ul>
 
 <!--                레시피 검색-->
-                <form class="col-12 col-lg-auto mb-3 mb-lg-0 me-lg-3" role="search">
-                    <input action="#" type="search" class="form-control form-control-dark" placeholder="레시피 검색..." aria-label="Search">
+                <form action="/home/search" class="col-12 col-lg-auto mb-3 mb-lg-0 me-lg-3" role="search">
+                    <input type="search" name="keyword" class="form-control form-control-dark"
+                           th:value="${keyword}" placeholder="레시피 검색..." aria-label="Search">
                 </form>
 
 <!-- 사용자 이미지 드롭다운 -->

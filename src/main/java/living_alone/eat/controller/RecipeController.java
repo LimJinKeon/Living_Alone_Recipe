@@ -11,6 +11,7 @@ import living_alone.eat.web.domain.dto.RecipeForm;
 import lombok.RequiredArgsConstructor;
 import org.springframework.core.io.Resource;
 import org.springframework.core.io.UrlResource;
+import org.springframework.data.domain.Page;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -36,10 +37,32 @@ public class RecipeController {
 
     // 내 레시피
     @GetMapping
-    public String myRecipe(Model model) {
-        List<Recipe> recipes = recipeService.findAllByMemberId(getCurrentLoginId());
-        model.addAttribute("myRecipes", recipes);
+    public String myRecipe(@RequestParam(defaultValue = "0") int page,
+                           @RequestParam(defaultValue = "12") int size,
+                           Model model) {
+        Page<Recipe> recipePage = recipeService.findAllByMemberId(page, size, getCurrentLoginId());
+
+        model.addAttribute("myRecipes", recipePage.getContent());       // 현재 페이지 데이터
+        model.addAttribute("currentPage", recipePage.getNumber());      // 현재 페이지 번호
+        model.addAttribute("totalPages", recipePage.getTotalPages());   // 전체 페이지 수
+
         return "menu/recipes/myRecipe";
+    }
+
+    // 내 레시피
+    @GetMapping("/search")
+    public String mySearchRecipe(
+                @RequestParam(defaultValue = "") String keyword,
+                @RequestParam(defaultValue = "0") int page,
+                @RequestParam(defaultValue = "12") int size,
+                Model model) {
+        Page<List<Recipe>> recipePage = recipeService.searchMemberRecipes(keyword, page, size, getCurrentLoginId());
+
+        model.addAttribute("myRecipes", recipePage.getContent().getFirst());    // 현재 페이지 데이터
+        model.addAttribute("currentPage", recipePage.getNumber());              // 현재 페이지 번호
+        model.addAttribute("totalPages", recipePage.getTotalPages());           // 전체 페이지 수
+
+        return "menu/recipes/mySearchRecipe";
     }
 
     // 신규 레시피 저장 폼
@@ -116,7 +139,7 @@ public class RecipeController {
         return "menu/recipes/recipeForm";
     }
 
-    // 홈 화면 레시피 사진 가져오기
+    // 레시피 사진 가져오기
     @ResponseBody
     @GetMapping("/images/{filename}")
     public Resource downloadImage(@PathVariable String filename) throws MalformedURLException {

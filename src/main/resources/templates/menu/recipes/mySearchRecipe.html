@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html th:replace="template/layout/recipe_search :: layout(~{::title}, ~{::body})">
+<head>
+    <title>내 레시피</title>
+</head>
+
+<body>
+<div class="container-fluid mt-4">
+    <button th:onclick="|location.href='/recipes/new'|" class="btn-primary rounded-pill my-2 jua-regular" style="font-size: 1.5em">+ 레시피 추가&nbsp;</button>
+    <div class="row">
+        <!-- 내 레시피 반복 나열 -->
+        <div class="col-2 mb-4" th:each="recipe : ${myRecipes}">
+            <div class="card recipe-card" style="border-radius: 10%; cursor: pointer; height: 350px" th:onclick="|location.href='/recipes/${recipe.id}'|">
+                <img th:src="|/recipes/images/${recipe.StoreFileName}|" class="card-img-top"
+                     alt="Recipe Image" th:alt="${recipe.uploadFileName}" style="border-top-right-radius: 10%; border-top-left-radius: 10%">
+                <div class="card-body">
+                    <h5 class="card-title" th:text="${recipe.recipeTitle}">레시피 제목</h5>
+                    <p class="card-text recipe-description" th:text="${recipe.recipeContent}">레시피 간단 설명이 이곳에 들어갑니다.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div>
+        <!-- 페이지 네비게이션 -->
+        <nav aria-label="Page navigation">
+            <ul class="pagination justify-content-center">
+                <!-- 이전 버튼 -->
+                <li class="page-item" th:classappend="${currentPage == 0} ? 'disabled'">
+                    <a class="page-link" th:href="@{/recipes/search(page=${currentPage - 1}, size=12)}" aria-label="Previous">
+                        <span aria-hidden="true">&laquo;</span>
+                    </a>
+                </li>
+
+                <!-- 페이지 번호 버튼 -->
+                <li class="page-item"
+                    th:each="pageNumber : ${#numbers.sequence(currentPage / 10 * 10, T(java.lang.Math).min((currentPage / 10 * 10) + 9, totalPages - 1))}"
+                    th:classappend="${pageNumber == currentPage} ? 'active'">
+                    <a class="page-link" th:href="@{/recipes/search(page=${pageNumber}, size=12)}" th:text="${pageNumber + 1}"></a>
+                </li>
+
+                <!-- 다음 버튼 -->
+                <li class="page-item" th:classappend="${currentPage == totalPages - 1} ? 'disabled'">
+                    <a class="page-link" th:href="@{/recipes/search(page=${currentPage + 1}, size=12)}" aria-label="Next">
+                        <span aria-hidden="true">&raquo;</span>
+                    </a>
+                </li>
+            </ul>
+        </nav>
+    </div>
+</div>
+
+
+<style>
+    @import url('https://fonts.googleapis.com/css2?family=Jua&display=swap');
+    .recipe-card img {
+        height: 230px;      /* 이미지 높이 고정 */
+        object-fit: cover;  /* 이미지 비율 유지 */
+    }
+    .card-title {
+        font-size: 1.2em;       /* 타이틀 크기 조정 */
+        white-space: nowrap;    /* 한 줄로 표시 */
+        overflow: hidden;       /* 넘치는 내용 숨김 */
+        text-overflow: ellipsis; /* 넘칠 경우 ...으로 표시 */
+    }
+    .recipe-description {
+        height: 3em;             /* 고정 높이 설정 */
+        line-height: 1.5em;      /* 각 줄의 높이 설정 */
+        overflow: hidden;        /* 넘치는 부분 숨김 */
+        text-overflow: ellipsis; /* 넘칠 경우 ...으로 표시 */
+        display: -webkit-box;    /* Flexbox 설정 */
+        -webkit-line-clamp: 2;   /* 최대 3줄 표시 */
+        -webkit-box-orient: vertical; /* 수직 방향 설정 */
+    }
+    .jua-regular {
+        font-family: "Jua", sans-serif;
+        font-weight: 400;
+        font-style: normal;
+    }
+</style>
+</body>
+</html>

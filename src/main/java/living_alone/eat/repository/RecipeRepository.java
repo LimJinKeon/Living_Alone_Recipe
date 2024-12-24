@@ -1,12 +1,15 @@
 package living_alone.eat.repository;
 
 import living_alone.eat.domain.Recipe;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.List;
-import java.util.Optional;
 
-public interface RecipeRepository extends JpaRepository<Recipe, Long> {
+public interface RecipeRepository extends JpaRepository<Recipe, Long>, CustomRecipeRepotory {
 
-    public Optional<List<Recipe>> findAllByMemberId(Long id);
+    Page<Recipe> findAllByMemberId(Pageable pageable, Long id);
+    Page<Recipe> findAll(Pageable pageable);
+    Page<Recipe> findByRecipeTitleContaining(String keyword, Pageable pageable);
 }

@@ -1,6 +1,7 @@
 package living_alone.eat.controller;
 
 import living_alone.eat.domain.Refrigerator;
+import living_alone.eat.exception.ImageNotFoundException;
 import living_alone.eat.file.IngredientImageStore;
 import living_alone.eat.service.RefrigeratorService;
 import living_alone.eat.web.domain.dto.RefrigeratorForm;
@@ -83,7 +84,7 @@ public class RefrigeratorController {
             return new UrlResource("file:" + ingredientImageStore.getFullPath(ingredientName));
         } catch (MalformedURLException e) {
             log.info("식재료 이미지가 없습니다.");
-            throw new RuntimeException(e);
+            throw new ImageNotFoundException(e);
         }
     }
 }

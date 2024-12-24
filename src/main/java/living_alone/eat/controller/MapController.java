@@ -1,6 +1,6 @@
 package living_alone.eat.controller;
 
-import living_alone.eat.service.MapService;
+import living_alone.eat.service.MemberService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
@@ -17,7 +17,7 @@ import static living_alone.eat.config.UserSessionUtil.*;
 @RequestMapping("/map")
 public class MapController {
 
-    private final MapService mapService;
+    private final MemberService memberService;
 
     // 근처 마트 폼
     @GetMapping()
@@ -29,7 +29,7 @@ public class MapController {
     @GetMapping("/defaultAddress")
     public ResponseEntity<Map<String, String>> getDefaultAddress() {
         // 사용자가 설정한 기본 주소 반환
-        String  defaultAddress = mapService.getDefaultAddress(getCurrentLoginId());
+        String  defaultAddress = memberService.getDefaultAddress(getCurrentLoginId());
 
         Map<String, String> response = new HashMap<>();
         if (defaultAddress != null) {

@@ -7,11 +7,14 @@ import living_alone.eat.repository.MemberRepository;
 import living_alone.eat.web.domain.dto.AddMemberForm;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Optional;
+
+import static living_alone.eat.config.UserSessionUtil.getCurrentLoginId;
 
 @Service
 @RequiredArgsConstructor
@@ -40,7 +43,7 @@ public class MemberService {
 
         Member member = Member.builder()
                 .username(form.getUsername())
-                .loginId(form.getLoginId())
+                .loginId(form.getLoginId().trim())
                 .password(encodedPassword)
                 .email(form.getEmail())
                 .role(role)
@@ -57,5 +60,13 @@ public class MemberService {
 
     public Optional<Member> findByLoginId(String loginId) {
         return memberRepository.findByLoginId(loginId);
+    }
+
+    // 기본 주소 가져오기
+    public String getDefaultAddress(String loginId) {
+        Member member = memberRepository.findByLoginId(getCurrentLoginId()).orElseThrow(
+                () -> new UsernameNotFoundException("사용자를 찾을 수 없습니다: " + loginId));
+
+        return member.getAddress();
     }
 }

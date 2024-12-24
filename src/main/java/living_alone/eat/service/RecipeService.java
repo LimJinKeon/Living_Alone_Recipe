@@ -10,6 +10,9 @@ import living_alone.eat.repository.RecipeRepository;
 import living_alone.eat.web.domain.dto.RecipeForm;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -70,18 +73,29 @@ public class RecipeService {
         return recipeRepository.findById(id);
     }
 
-    public List<Recipe> findAll() {
-        return recipeRepository.findAll();
+    // 모든 레시피를 가져오는 페이징 코드
+    public Page<Recipe> findAll(int page, int limit) {
+        Pageable pageable = PageRequest.of(page, limit);
+        return recipeRepository.findAll(pageable);
     }
 
-    public List<Recipe> findAllByMemberId(String loginId) {
-        Member member = memberRepository.findByLoginId(loginId).orElseThrow();
+    // 해당 검색어가 들어간 모든 레시피를 가져오는 페이징 코드
+    public Page<Recipe> searchRecipes(String keyword, int page, int limit) {
+        Pageable pageable = PageRequest.of(page, limit);
+        return recipeRepository.findByRecipeTitleContaining(keyword, pageable);
+    }
 
-        Optional<List<Recipe>> recipes = recipeRepository.findAllByMemberId(member.getId());
-        if (recipes.isPresent()) {
-            return recipes.get();
-        }
-        return null;
+    // 해당 사용자의 모든 레시피를 가져오는 페이징 코드
+    public Page<Recipe> findAllByMemberId(int page, int limit, String loginId) {
+        Member member = memberRepository.findByLoginId(loginId).orElseThrow();
+        Pageable pageable = PageRequest.of(page, limit);
+        return recipeRepository.findAllByMemberId(pageable, member.getId());
+    }
+
+    // 해당 검색어가 들어간 특정 사용자의 모든 레시피를 가져오는 페이징 코드
+    public Page<List<Recipe>> searchMemberRecipes(String keyword, int page, int limit, String loginId) {
+        Pageable pageable = PageRequest.of(page, limit);
+        return recipeRepository.searchMemberRecipes(keyword, pageable, loginId);
     }
 
     @Transactional

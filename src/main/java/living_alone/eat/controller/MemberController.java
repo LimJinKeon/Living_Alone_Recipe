@@ -53,43 +53,6 @@ public class MemberController {
         return "members/loginForm";
     }
 
-    /*// 로그인
-    @PostMapping("/login")
-    public String login(@Valid @ModelAttribute LoginForm form, BindingResult bindingResult,
-                        HttpServletRequest request, @RequestParam(defaultValue = "/home") String redirectURL) {
-        if (bindingResult.hasErrors()) {
-            return "members/loginForm";
-        }
-
-        Boolean result = checkIdPassword(form, bindingResult);
-
-        //로그인 실패
-        if (!result) return "members/loginForm";
-
-        //로그인 성공
-        log.info("login {}", form.getLoginId());
-        HttpSession session = request.getSession();
-        session.setAttribute(SessionConst.LOGIN_MEMBER, form.getLoginId());
-
-        return "redirect:" + redirectURL;
-    }*/
-
-    private Boolean checkIdPassword(LoginForm form, BindingResult bindingResult) {
-        Optional<Member> member = memberService.findByLoginId(form.getLoginId());
-
-        // 아이디 확인
-        if (member.isPresent()) {
-            if (!member.get().getPassword().equals(form.getPassword())) {
-                bindingResult.rejectValue("password", "invalid");
-                return false;
-            }
-        } else {
-            bindingResult.rejectValue("loginId", "invalid");
-            return false;
-        }
-        return true;
-    }
-
     //로그아웃
     @PostMapping("/logout")
     public String logout(HttpServletRequest request) {

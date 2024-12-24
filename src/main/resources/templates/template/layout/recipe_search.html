@@ -2,29 +2,30 @@
 <html th:fragment="layout (title, content)" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta name="viewport" charset="UTF-8" content="width=device-width, initial-scale=1.0">
-<!--    부트스트랩-->
+    <!--    부트스트랩-->
     <link rel="stylesheet" th:href="@{/css/bootstrap.min.css}" href="../../../static/css/bootstrap.min.css" integrity="sha384
         ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
           crossorigin="anonymous">
-<!--    파비콘-->
+    <!--    파비콘-->
     <link rel="icon" href="../../../static/img/fabicon.png" th:href="@{/img/fabicon.png}" type="image/png">
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 
     <header class="p-3" style="background-color: #008cff;">
         <div class="container">
             <div class="d-flex flex-wrap align-items-center justify-content-center justify-content-lg-start">
-<!--                홈 로고-->
+                <!--                홈 로고-->
                 <ul class="nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center">
                     <li><a href="../../home.html" th:href="@{/home}" class="nav-link px-2">
                         <img src="../../../static/img/head.png" th:src="@{/img/head.png}" style="width: 12em;"></a></li>
                 </ul>
 
-<!--                레시피 검색-->
-                <form class="col-12 col-lg-auto mb-3 mb-lg-0 me-lg-3" role="search">
-                    <input action="#" type="search" class="form-control form-control-dark" placeholder="레시피 검색..." aria-label="Search">
+                <!--                레시피 검색-->
+                <form action="/recipes/search" class="col-12 col-lg-auto mb-3 mb-lg-0 me-lg-3" role="search">
+                    <input type="search" name="keyword" class="form-control form-control-dark"
+                           th:value="${keyword}" placeholder="레시피 검색..." aria-label="Search">
                 </form>
 
-<!-- 사용자 이미지 드롭다운 -->
+                <!-- 사용자 이미지 드롭다운 -->
                 <div class="dropdown">
                     <a href="#" class="d-flex align-items-center text-white text-decoration-none dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
                         <img th:src="@{/img/defaultUserImage.webp}" alt="프로필" width="42" height="42" class="rounded-circle me-2">
