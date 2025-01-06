@@ -1,5 +1,7 @@
 package living_alone.eat.controller;
 
+import com.amazonaws.services.s3.AmazonS3Client;
+import com.amazonaws.services.s3.model.ObjectMetadata;
 import jakarta.validation.Valid;
 import living_alone.eat.domain.Member;
 import living_alone.eat.domain.Recipe;
@@ -9,14 +11,18 @@ import living_alone.eat.service.MemberService;
 import living_alone.eat.service.RecipeService;
 import living_alone.eat.web.domain.dto.RecipeForm;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.io.Resource;
 import org.springframework.core.io.UrlResource;
 import org.springframework.data.domain.Page;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.io.IOException;
@@ -34,6 +40,10 @@ public class RecipeController {
     private final RecipeService recipeService;
     private final RecipeImageStore recipeImageStore;
     private final MemberService memberService;
+    private final AmazonS3Client amazonS3Client;
+
+    @Value("${cloud.aws.s3.bucket}")
+    private String bucket;
 
     // 내 레시피
     @GetMapping

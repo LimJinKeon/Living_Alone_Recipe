@@ -2,8 +2,8 @@ spring:
   application: name=eat
 
   datasource:
-    url: jdbc:mariadb://localhost:3306/living_alone
-    username: sa
+    url: jdbc:mariadb://livingalonerecipedb.cee4yjq94bch.ap-northeast-2.rds.amazonaws.com:3306/livingAloneRecipeDB
+    username: root
     password:
     driver-class-name: org.mariadb.jdbc.Driver
 
