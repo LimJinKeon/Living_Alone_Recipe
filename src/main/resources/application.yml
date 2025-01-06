@@ -4,7 +4,7 @@ spring:
   datasource:
     url: jdbc:mariadb://localhost:3306/living_alone
     username: sa
-    password: 1234
+    password:
     driver-class-name: org.mariadb.jdbc.Driver
 
   servlet:
@@ -35,7 +35,7 @@ spring:
 
 logging.level:
     org.hibernate.SQL: debug
-    org.hibernate.orm.jdbc.bind: trace
+    org.hibernate.orm.jdbc.bind:
 
 recipe:
   dir: C:/Users/user/Desktop/project/file/

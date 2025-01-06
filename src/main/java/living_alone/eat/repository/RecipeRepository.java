@@ -9,7 +9,5 @@ import java.util.List;
 
 public interface RecipeRepository extends JpaRepository<Recipe, Long>, CustomRecipeRepotory {
 
-    Page<Recipe> findAllByMemberId(Pageable pageable, Long id);
     Page<Recipe> findAll(Pageable pageable);
-    Page<Recipe> findByRecipeTitleContaining(String keyword, Pageable pageable);
 }

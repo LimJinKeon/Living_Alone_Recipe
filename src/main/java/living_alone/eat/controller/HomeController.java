@@ -20,28 +20,29 @@ public class HomeController {
     private final RecipeService recipeService;
     private final KamisService kamisService;
 
-    // welcome 화면
+    // welcome 페이지
     @GetMapping("/")
     public String mainPage() {
         return "welcome";
     }
 
-    // 홈 화면
+    // 홈 페이지
     @GetMapping("/home")
     public String home(@RequestParam(defaultValue = "0") int page,
                        @RequestParam(defaultValue = "9") int size,
                        Model model) throws Exception {
-        Page<Recipe> recipePage = recipeService.findAll(page, size);
+        Page<List<Recipe>> recipePage = recipeService.findAllOrderByCreate(page, size);
         List<DailyPriceDto> recentlyPriceTrend = kamisService.getRecentlyPriceTrend();
 
-        model.addAttribute("recipes", recipePage.getContent());         // 현재 페이지 데이터
-        model.addAttribute("currentPage", recipePage.getNumber());      // 현재 페이지 번호
-        model.addAttribute("totalPages", recipePage.getTotalPages());   // 전체 페이지 수
-        model.addAttribute("recentlyPriceTrend", recentlyPriceTrend);   // 농산물 당일 가격 데이터
+        model.addAttribute("recipes", recipePage.getContent().getFirst());  // 현재 페이지 데이터
+        model.addAttribute("currentPage", recipePage.getNumber());          // 현재 페이지 번호
+        model.addAttribute("totalPages", recipePage.getTotalPages());       // 전체 페이지 수
+        model.addAttribute("recentlyPriceTrend", recentlyPriceTrend);       // 농산물 당일 가격 데이터
 
         return "home";
     }
 
+    // 레시피 검색 결과
     @GetMapping("/home/search")
     public String searchRecipes(
             @RequestParam(defaultValue = "") String keyword,
@@ -49,12 +50,12 @@ public class HomeController {
             @RequestParam(defaultValue = "8") int size,
             Model model) {
 
-        Page<Recipe> recipePage = recipeService.searchRecipes(keyword, page, size);
+        Page<List<Recipe>> recipePage = recipeService.searchRecipesLike(keyword, page, size);
 
-        model.addAttribute("recipes", recipePage.getContent());
-        model.addAttribute("currentPage", recipePage.getNumber());
-        model.addAttribute("totalPages", recipePage.getTotalPages());
-        model.addAttribute("keyword", keyword);
+        model.addAttribute("recipes", recipePage.getContent().getFirst());   // 현재 페이지 데이터
+        model.addAttribute("currentPage", recipePage.getNumber());           // 현재 페이지 번호
+        model.addAttribute("totalPages", recipePage.getTotalPages());        // 전체 페이지 수
+        model.addAttribute("keyword", keyword);                              // 농산물 당일 가격 데이터
 
         return "homeSearchRecipe";
     }

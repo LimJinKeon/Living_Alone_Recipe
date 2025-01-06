@@ -40,23 +40,23 @@ public class RecipeController {
     public String myRecipe(@RequestParam(defaultValue = "0") int page,
                            @RequestParam(defaultValue = "12") int size,
                            Model model) {
-        Page<Recipe> recipePage = recipeService.findAllByMemberId(page, size, getCurrentLoginId());
+        Page<List<Recipe>> recipePage = recipeService.findAllByMemberId(page, size, getCurrentLoginId());
 
-        model.addAttribute("myRecipes", recipePage.getContent());       // 현재 페이지 데이터
+        model.addAttribute("myRecipes", recipePage.getContent().getFirst());       // 현재 페이지 데이터
         model.addAttribute("currentPage", recipePage.getNumber());      // 현재 페이지 번호
         model.addAttribute("totalPages", recipePage.getTotalPages());   // 전체 페이지 수
 
         return "menu/recipes/myRecipe";
     }
 
-    // 내 레시피
+    // 내 레시피 검색 결과
     @GetMapping("/search")
     public String mySearchRecipe(
                 @RequestParam(defaultValue = "") String keyword,
                 @RequestParam(defaultValue = "0") int page,
                 @RequestParam(defaultValue = "12") int size,
                 Model model) {
-        Page<List<Recipe>> recipePage = recipeService.searchMemberRecipes(keyword, page, size, getCurrentLoginId());
+        Page<List<Recipe>> recipePage = recipeService.searchMemberRecipesLike(keyword, page, size, getCurrentLoginId());
 
         model.addAttribute("myRecipes", recipePage.getContent().getFirst());    // 현재 페이지 데이터
         model.addAttribute("currentPage", recipePage.getNumber());              // 현재 페이지 번호
